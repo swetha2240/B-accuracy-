@@ -1,0 +1,1510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BizTech Intelligence ERP - Swetha.L</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --g-deep: #0a2e14;
+    --g-dark: #0f4020;
+    --g-mid: #1a7a34;
+    --g-bright: #28b84a;
+    --g-light: #5dd87a;
+    --g-pale: #b8f0c6;
+    --g-glow: rgba(40,184,74,0.35);
+    --accent-yellow: #ffd600;
+    --accent-red: #f44336;
+    --accent-blue: #1a7fe8;
+    --white: #ffffff;
+    --white80: rgba(255,255,255,0.8);
+    --white50: rgba(255,255,255,0.5);
+    --white20: rgba(255,255,255,0.2);
+    --white10: rgba(255,255,255,0.1);
+  }
+  html, body { width: 100%; height: 100%; overflow: hidden; background: var(--g-deep); font-family: 'Open Sans', sans-serif; }
+  #app { width: 100vw; height: 100vh; display: flex; flex-direction: column; position: relative; overflow: hidden; }
+  .bg-layer { position: absolute; inset: 0; z-index: 0; background: radial-gradient(ellipse 80% 60% at 50% 40%, #155a28 0%, #0a2e14 60%, #051a0b 100%); }
+  .bg-grid { position: absolute; inset: 0; z-index: 1; opacity: 0.07; background-image: linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px); background-size: 40px 40px; }
+  .bg-world { position: absolute; inset: 0; z-index: 2; opacity: 0.08; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500"><ellipse cx="500" cy="250" rx="490" ry="240" fill="none" stroke="white" stroke-width="1.5"/><ellipse cx="500" cy="250" rx="320" ry="240" fill="none" stroke="white" stroke-width="1"/><ellipse cx="500" cy="250" rx="160" ry="240" fill="none" stroke="white" stroke-width="0.8"/><ellipse cx="500" cy="250" rx="490" ry="120" fill="none" stroke="white" stroke-width="1"/><ellipse cx="500" cy="250" rx="490" ry="50" fill="none" stroke="white" stroke-width="0.7"/><line x1="10" y1="250" x2="990" y2="250" stroke="white" stroke-width="1"/><line x1="500" y1="10" x2="500" y2="490" stroke="white" stroke-width="1"/></svg>') center/cover no-repeat; }
+  .bg-calculator { position: absolute; right: 0; bottom: 60px; z-index: 2; opacity: 0.06; width: 45%; height: 70%; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400"><rect x="20" y="20" width="260" height="360" rx="20" fill="white"/><rect x="40" y="40" width="220" height="80" rx="8" fill="%231a7a34"/><text x="240" y="105" font-size="40" text-anchor="end" fill="white" font-family="monospace">1042</text><rect x="40" y="140" width="50" height="40" rx="6" fill="%2328b84a"/><rect x="105" y="140" width="50" height="40" rx="6" fill="%2328b84a"/><rect x="170" y="140" width="50" height="40" rx="6" fill="%2328b84a"/><rect x="235" y="140" width="50" height="40" rx="6" fill="%23f44336"/><rect x="40" y="195" width="50" height="40" rx="6" fill="%2328b84a"/><rect x="105" y="195" width="50" height="40" rx="6" fill="%2328b84a"/><rect x="170" y="195" width="50" height="40" rx="6" fill="%2328b84a"/><rect x="235" y="195" width="50" height="40" rx="6" fill="%2328b84a"/><rect x="40" y="250" width="50" height="40" rx="6" fill="%2328b84a"/><rect x="105" y="250" width="50" height="40" rx="6" fill="%2328b84a"/><rect x="170" y="250" width="50" height="40" rx="6" fill="%2328b84a"/><rect x="235" y="250" width="50" height="40" rx="6" fill="%2328b84a"/><rect x="40" y="305" width="115" height="40" rx="6" fill="%2328b84a"/><rect x="170" y="305" width="50" height="40" rx="6" fill="%2328b84a"/><rect x="235" y="305" width="50" height="40" rx="6" fill="%2300e676"/></svg>') center/contain no-repeat; }
+  .bg-ledger { position: absolute; left: 0; bottom: 60px; z-index: 2; opacity: 0.07; width: 40%; height: 60%; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect x="10" y="10" width="380" height="280" fill="white"/><line x1="10" y1="40" x2="390" y2="40" stroke="%231a7a34" stroke-width="2"/><line x1="200" y1="10" x2="200" y2="290" stroke="%231a7a34" stroke-width="1"/><line x1="10" y1="70" x2="390" y2="70" stroke="%23ccc" stroke-width="0.5"/><line x1="10" y1="100" x2="390" y2="100" stroke="%23ccc" stroke-width="0.5"/><line x1="10" y1="130" x2="390" y2="130" stroke="%23ccc" stroke-width="0.5"/><line x1="10" y1="160" x2="390" y2="160" stroke="%23ccc" stroke-width="0.5"/><line x1="10" y1="190" x2="390" y2="190" stroke="%23ccc" stroke-width="0.5"/><line x1="10" y1="220" x2="390" y2="220" stroke="%23ccc" stroke-width="0.5"/><line x1="10" y1="250" x2="390" y2="250" stroke="%23ccc" stroke-width="0.5"/></svg>') center/contain no-repeat; }
+
+  /* HEADER */
+  #header { position: relative; z-index: 100; background: linear-gradient(90deg, rgba(10,46,20,0.97) 0%, rgba(21,90,40,0.95) 50%, rgba(10,46,20,0.97) 100%); border-bottom: 2px solid var(--g-bright); display: flex; align-items: center; justify-content: space-between; padding: 6px 16px; min-height: 68px; box-shadow: 0 2px 20px rgba(0,0,0,0.5); }
+  .hdr-left { display: flex; align-items: center; gap: 12px; }
+  .qr-box { width: 52px; height: 52px; background: #fff; border-radius: 4px; padding: 2px; flex-shrink: 0; border: 2px solid var(--g-bright); overflow: hidden; }
+  .qr-box img { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .company-block { line-height: 1.3; }
+  .check-name { display: flex; align-items: center; gap: 6px; }
+  .check-icon { color: #00e676; font-size: 16px; font-weight: 700; }
+  .company-name { font-family: 'Rajdhani', sans-serif; font-size: 16px; font-weight: 700; color: #a0ffb8; letter-spacing: 0.5px; }
+  .reg-num { font-size: 10px; color: var(--white80); letter-spacing: 0.3px; }
+  .main-sys { font-size: 11px; color: var(--g-light); font-weight: 600; margin-top: 1px; }
+  .hdr-center { text-align: center; }
+  #clock-time { font-family: 'Rajdhani', sans-serif; font-size: 22px; font-weight: 700; color: #fff; letter-spacing: 2px; font-variant-numeric: tabular-nums; }
+  #clock-date { font-size: 11px; color: var(--white80); letter-spacing: 0.5px; }
+  .hdr-right { display: flex; align-items: center; gap: 8px; }
+  .hdr-icon-btn { width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid var(--white20); background: var(--white10); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; position: relative; color: #fff; font-size: 16px; text-decoration: none; }
+  .hdr-icon-btn:hover { background: var(--white20); border-color: var(--white50); transform: scale(1.1); }
+  .hdr-icon-btn.wa { background: #25d366; border-color: #a5d6a7; }
+  .hdr-icon-btn.gm { background: #ea4335; border-color: #ef9a9a; }
+  .hdr-icon-btn.pw { background: #e53935; border-color: #ef9a9a; }
+  .notif-badge { position: absolute; top: 3px; right: 3px; width: 8px; height: 8px; background: var(--accent-yellow); border-radius: 50%; border: 1.5px solid var(--g-deep); }
+  .hdr-icon-btn svg { width: 18px; height: 18px; }
+
+  /* NAVBAR */
+  #navbar { position: relative; z-index: 90; background: rgba(5,20,10,0.88); border-bottom: 1.5px solid rgba(40,184,74,0.4); display: flex; align-items: stretch; backdrop-filter: blur(8px); }
+  .nav-sep { width: 1px; background: rgba(255,255,255,0.12); margin: 6px 0; flex-shrink: 0; }
+  .nav-item { position: relative; flex: 1; }
+  .nav-btn { width: 100%; background: none; border: none; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 12px 6px 10px; color: #fff; transition: background 0.2s; }
+  .nav-btn:hover, .nav-btn.open { background: rgba(40,184,74,0.2); }
+  .nav-icon-svg { font-size: 28px; line-height: 1; color: var(--g-light); }
+  .nav-label-wrap { display: flex; align-items: center; gap: 4px; font-family: 'Rajdhani', sans-serif; font-size: 12px; font-weight: 600; color: var(--g-pale); letter-spacing: 0.5px; white-space: nowrap; }
+  .nav-arrow { font-size: 9px; color: var(--white50); transition: transform 0.2s; }
+  .nav-btn.open .nav-arrow { transform: rotate(180deg); }
+  .dropdown { display: none; position: absolute; top: 100%; left: 0; min-width: 240px; z-index: 200; background: linear-gradient(180deg, #0a3018 0%, #071a0d 100%); border: 1px solid rgba(40,184,74,0.5); border-top: 2px solid var(--g-bright); border-radius: 0 0 8px 8px; box-shadow: 0 8px 32px rgba(0,0,0,0.6); animation: dropIn 0.15s ease; }
+  @keyframes dropIn { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:translateY(0); } }
+  .nav-item .dropdown.show { display: block; }
+  .dropdown a, .dropdown .flyout-trigger { display: flex; align-items: center; gap: 8px; padding: 10px 16px; color: var(--white80); text-decoration: none; font-size: 13px; border-bottom: 1px solid rgba(255,255,255,0.06); transition: all 0.15s; font-family: 'Open Sans', sans-serif; cursor: pointer; background: none; border: none; width: 100%; box-sizing: border-box; text-align: left; }
+  .dropdown a:last-child, .dropdown .flyout-trigger:last-child { border-bottom: none; border-radius: 0 0 8px 8px; }
+  .dropdown a:hover, .dropdown .flyout-trigger:hover, .dropdown .flyout-item.active > .flyout-trigger { background: rgba(40,184,74,0.25); color: #fff; padding-left: 20px; }
+  .dropdown a::before, .dropdown .flyout-trigger::before { content: '›'; color: var(--g-light); font-size: 16px; font-weight: 700; flex-shrink: 0; }
+  .dropdown a.exit-btn { color: #f44336; font-weight: 700; }
+  .dropdown a.exit-btn::before { color: #f44336; }
+  .dropdown a.exit-btn:hover { background: rgba(244,67,54,0.15); color: #ff6659; padding-left: 20px; }
+  .flyout-item { position: relative; }
+  .flyout-trigger { justify-content: space-between !important; }
+  .flyout-trigger .flyout-arrow { font-size: 11px; color: var(--white50); margin-left: auto; }
+  .flyout-panel { display: none; position: absolute; top: 0; left: 100%; min-width: 230px; z-index: 300; background: linear-gradient(180deg, #0a3018 0%, #082010 100%); border: 1px solid rgba(40,184,74,0.6); border-left: 2px solid var(--g-bright); border-radius: 0 8px 8px 0; box-shadow: 8px 8px 32px rgba(0,0,0,0.7); animation: flyIn 0.15s ease; }
+  @keyframes flyIn { from { opacity:0; transform:translateX(-6px); } to { opacity:1; transform:translateX(0); } }
+  .flyout-item.active > .flyout-panel { display: block; }
+  .flyout-panel-header { font-family: 'Rajdhani', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1px; color: var(--g-light); padding: 8px 14px 6px; border-bottom: 1px solid rgba(40,184,74,0.3); text-transform: uppercase; }
+  .flyout-panel a { border-bottom: 1px solid rgba(255,255,255,0.05) !important; font-size: 12px !important; padding: 9px 14px !important; }
+  .flyout-panel a:hover { padding-left: 20px !important; }
+  .flyout-sub-item { position: relative; }
+  .flyout-sub-panel { display: none; position: absolute; top: 0; left: 100%; min-width: 220px; z-index: 400; background: linear-gradient(180deg, #0c3a1c 0%, #082010 100%); border: 1px solid rgba(40,184,74,0.7); border-left: 2px solid var(--g-light); border-radius: 0 8px 8px 0; box-shadow: 8px 8px 32px rgba(0,0,0,0.8); animation: flyIn 0.15s ease; }
+  .flyout-sub-item.active > .flyout-sub-panel { display: block; }
+  .flyout-sub-panel-header { font-family: 'Rajdhani', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1px; color: var(--g-light); padding: 8px 14px 6px; border-bottom: 1px solid rgba(93,216,122,0.3); text-transform: uppercase; }
+  .flyout-sub-panel a { font-size: 12px !important; padding: 9px 14px !important; border-bottom: 1px solid rgba(255,255,255,0.05) !important; }
+  .flyout-sub-panel a:hover { padding-left: 20px !important; }
+
+  /* SEARCH AND MODIFY PANEL */
+  .modify-nav-item { position: relative; }
+  .modify-panel { right: 0 !important; left: auto !important; min-width: 580px !important; border-radius: 0 0 10px 10px !important; }
+  .modify-panel-header { font-family: 'Rajdhani', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 1.5px; color: var(--accent-yellow); text-transform: uppercase; padding: 10px 18px 8px; border-bottom: 1px solid rgba(40,184,74,0.35); background: rgba(0,0,0,0.15); }
+  .modify-panel-body { display: flex; gap: 0; }
+  .modify-col { flex: 1; border-right: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; }
+  .modify-col:last-child { border-right: none; }
+  .modify-col-right { flex: 0 0 220px; }
+  .modify-col a { display: flex; align-items: center; gap: 7px; padding: 7px 14px; color: var(--white80); text-decoration: none; font-size: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); transition: all 0.15s; font-family: 'Open Sans', sans-serif; cursor: pointer; }
+  .modify-col a:hover { background: rgba(40,184,74,0.22); color: #fff; padding-left: 18px; }
+  .modify-col a.exit-btn { color: #f44336; font-weight: 700; }
+  .modify-col a.exit-btn:hover { background: rgba(244,67,54,0.15); color: #ff6659; }
+  .modify-section-divider { height: 1px; background: rgba(40,184,74,0.4); margin: 4px 10px; }
+  .modify-spacer { flex: 1; }
+
+  /* MAIN BODY */
+  #main-body { position: relative; z-index: 5; flex: 1; display: flex; align-items: flex-end; justify-content: flex-end; padding: 16px 24px; }
+  .logo-bottom-right { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+
+  /* STATUS BAR */
+  #statusbar { position: relative; z-index: 100; background: linear-gradient(90deg, rgba(5,15,8,0.97) 0%, rgba(10,40,18,0.95) 50%, rgba(5,15,8,0.97) 100%); border-top: 2px solid var(--g-bright); display: flex; align-items: center; justify-content: space-between; padding: 5px 16px; min-height: 36px; }
+  .sb-left { display: flex; align-items: center; gap: 10px; }
+  .india-flag { width: 40px; height: 26px; border-radius: 2px; overflow: hidden; display: flex; flex-direction: column; border: 1px solid rgba(255,255,255,0.3); flex-shrink: 0; }
+  .flag-saffron { flex: 1; background: #FF9933; }
+  .flag-white { flex: 1; background: #fff; display: flex; align-items: center; justify-content: center; }
+  .flag-green { flex: 1; background: #138808; }
+  .ashoka-wheel { font-size: 8px; color: #000080; font-weight: 700; }
+  .sb-gst { font-size: 11px; color: var(--white80); }
+  .sb-gst strong { color: #00e676; }
+  .sb-center { font-family: 'Rajdhani', sans-serif; font-size: 14px; font-weight: 700; color: var(--g-light); letter-spacing: 1px; text-align: center; }
+  .sb-right { font-size: 11px; color: var(--white80); text-align: right; }
+  .sb-right strong { color: var(--accent-yellow); }
+
+  /* ============ GENERIC MODAL BASE ============ */
+  @keyframes modalIn { from { opacity:0; transform: scale(0.96) translateY(-10px); } to { opacity:1; transform: scale(1) translateY(0); } }
+
+  /* ============ MASTER LEDGER MODAL ============ */
+  #modal-overlay { display: none; position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.72); backdrop-filter: blur(3px); align-items: center; justify-content: center; }
+  #modal-overlay.show { display: flex; }
+  #master-ledger-modal { background: #d4edda; border: 2px solid #4caf50; border-radius: 6px; width: 1020px; max-width: 96vw; box-shadow: 0 10px 50px rgba(0,0,0,0.8); overflow: hidden; font-family: 'Open Sans', sans-serif; animation: modalIn 0.18s ease; }
+  .ml-titlebar { background: linear-gradient(90deg, #a8d5b5 0%, #d4edda 60%, #a8d5b5 100%); border-bottom: 2px solid #4caf50; padding: 5px 12px; display: flex; align-items: center; justify-content: space-between; }
+  .ml-titlebar-title { font-family: 'Rajdhani', sans-serif; font-size: 15px; font-weight: 700; color: #1a4a25; }
+  .ml-close-btn { background: #c0392b; border: none; color: #fff; width: 22px; height: 22px; border-radius: 3px; cursor: pointer; font-size: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+  .ml-close-btn:hover { background: #922b21; }
+  .ml-body { display: flex; background: #d4edda; }
+  .ml-left { flex: 0 0 460px; padding: 16px 18px 12px; border-right: 2px solid #81c784; }
+  .ml-form-row { display: flex; align-items: center; gap: 6px; margin-bottom: 10px; }
+  .ml-form-row label { font-size: 12px; font-weight: 700; color: #1a4025; min-width: 105px; }
+  .ml-req { color: red; }
+  .ml-input-num { width: 42px; padding: 3px 5px; border: 1.5px solid #81c784; border-radius: 2px; background: #fff; font-size: 12px; color: #1a4025; text-align: center; font-weight: 700; }
+  .ml-hint { font-size: 11px; color: #c0392b; white-space: nowrap; }
+  .ml-input-code { width: 56px; padding: 3px 5px; border: 1.5px solid #81c784; border-radius: 2px; background: #e8f5e9; font-size: 12px; color: #1a4025; text-align: center; font-weight: 700; }
+  .ml-input-desc { flex: 1; padding: 3px 6px; border: 1.5px solid #81c784; border-radius: 2px; background: #fdfffe; font-size: 11.5px; color: #555; }
+  .ml-input-head { flex: 1; padding: 3px 6px; border: 1.5px solid #81c784; border-radius: 2px; background: #fff; font-size: 12px; color: #1a4025; }
+  .ml-opening-section { margin-top: 20px; padding-top: 12px; border-top: 1px dashed #81c784; }
+  .ml-opening-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .ml-opening-row label { font-size: 12px; font-weight: 700; color: #1a5a30; white-space: nowrap; }
+  .ml-input-date { width: 90px; padding: 3px 5px; border: 1.5px solid #81c784; border-radius: 2px; background: #fff; font-size: 12px; }
+  .ml-input-amount { width: 80px; padding: 3px 5px; border: 1.5px solid #81c784; border-radius: 2px; background: #fff; font-size: 12px; text-align: right; }
+  .ml-btn-row { display: flex; gap: 10px; margin-top: 22px; padding-top: 12px; border-top: 1px solid #a5d6a7; justify-content: center; }
+  .ml-btn { padding: 5px 22px; border-radius: 3px; font-size: 13px; font-weight: 600; cursor: pointer; border: 1px solid #999; }
+  .ml-btn-save, .ml-btn-next { background: #c8e6c9; color: #1a4025; }
+  .ml-btn-close { background: #e74c3c; color: #fff; border-color: #c0392b; }
+  .ml-btn:hover { filter: brightness(0.9); }
+  .ml-chart { flex: 1; padding: 12px 14px; background: #d4edda; }
+  .ml-chart-head { display: flex; align-items: center; gap: 8px; justify-content: center; margin-bottom: 6px; }
+  .ml-chart-title { font-family: 'Rajdhani', sans-serif; font-size: 15px; font-weight: 700; color: #1a6b30; text-align: center; font-style: italic; }
+  .ml-chart-sub { font-family: 'Rajdhani', sans-serif; font-size: 13px; color: #2e7d32; text-align: center; font-style: italic; }
+  .ml-chart-table { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+  .ml-chart-table td { padding: 3.5px 5px; border-bottom: 1px solid #a5d6a7; color: #1a4025; vertical-align: top; }
+  .ml-chart-table .ctn { font-weight: 700; color: #2e7d32; width: 22px; }
+  .ml-chart-table .ctname { color: #1a5a30; font-weight: 600; white-space: nowrap; width: 160px; }
+  .ml-chart-table .ctdesc { color: #555; font-size: 11px; }
+  .ml-chart-table tr:nth-child(even) { background: rgba(165,214,167,0.3); }
+  .ml-side { flex: 0 0 108px; background: #a8d5b5; border-left: 2px solid #81c784; display: flex; flex-direction: column; align-items: center; padding: 12px 6px; gap: 8px; }
+  .ml-side-btn { display: flex; flex-direction: column; align-items: center; gap: 3px; cursor: pointer; width: 95px; padding: 6px 4px; border-radius: 4px; text-align: center; }
+  .ml-side-btn:hover { background: rgba(40,184,74,0.2); }
+  .ml-side-btn-icon { font-size: 22px; line-height: 1; }
+  .ml-side-btn-label { font-size: 10.5px; font-weight: 700; color: #1a4025; line-height: 1.25; }
+
+  /* ============ PRODUCT LEDGER MODAL ============ */
+  #product-ledger-overlay { display: none; position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.72); backdrop-filter: blur(3px); align-items: center; justify-content: center; }
+  #product-ledger-overlay.show { display: flex; }
+  #product-ledger-modal { background: #c8e6c9; border: 2px solid #4caf50; border-radius: 6px; width: 1020px; max-width: 97vw; max-height: 95vh; box-shadow: 0 10px 50px rgba(0,0,0,0.85); overflow: hidden; font-family: 'Open Sans', sans-serif; animation: modalIn 0.18s ease; display: flex; flex-direction: column; }
+  .pl-titlebar { background: linear-gradient(90deg, #81c784 0%, #c8e6c9 50%, #81c784 100%); border-bottom: 2px solid #4caf50; padding: 5px 12px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+  .pl-titlebar-title { font-family: 'Rajdhani', sans-serif; font-size: 15px; font-weight: 700; color: #1a4a25; }
+  .pl-close-btn { background: #c0392b; border: none; color: #fff; width: 22px; height: 22px; border-radius: 3px; cursor: pointer; font-size: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+  .pl-close-btn:hover { background: #922b21; }
+  .pl-body { display: flex; flex: 1; overflow: hidden; background: #c8e6c9; }
+  .pl-main { flex: 1; padding: 10px 14px 10px; overflow-y: auto; }
+  .pl-side { flex: 0 0 160px; background: #a5d6a7; border-left: 2px solid #81c784; display: flex; flex-direction: column; align-items: center; padding: 14px 8px 10px; gap: 4px; overflow-y: auto; }
+  .pl-side-btn { display: flex; align-items: center; gap: 7px; width: 144px; padding: 5px 8px; border-radius: 3px; cursor: pointer; margin-bottom: 2px; background: none; border: none; }
+  .pl-side-btn:hover { background: rgba(40,184,74,0.18); }
+  .pl-side-lbl { font-size: 11.5px; font-weight: 600; color: #1a4025; text-decoration: underline; }
+  .pl-side-divider { width: 140px; height: 1px; background: #81c784; margin: 5px 0; }
+  .pl-side-title { font-size: 11px; font-weight: 700; color: #c0392b; text-decoration: underline; margin-bottom: 6px; font-family: 'Rajdhani', sans-serif; }
+  .pl-form-header { text-align: center; margin-bottom: 10px; border-bottom: 1px solid #a5d6a7; padding-bottom: 8px; }
+  .pl-chart-title { font-family: 'Rajdhani', sans-serif; font-size: 18px; font-weight: 700; color: #1a4a25; }
+  .pl-date-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .pl-label { font-size: 12px; font-weight: 700; color: #1a5a30; white-space: nowrap; }
+  .pl-input { padding: 3px 7px; border: 1.5px solid #81c784; border-radius: 2px; background: #fff; font-size: 12px; color: #1a4025; }
+  .pl-select { padding: 3px 4px; border: 1.5px solid #81c784; border-radius: 2px; background: #fff; font-size: 12px; color: #1a4025; }
+  .pl-row { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; flex-wrap: wrap; }
+  .pl-input-wide { padding: 3px 7px; border: 1.5px solid #81c784; border-radius: 2px; background: #fff; font-size: 12px; color: #1a4025; flex: 1; min-width: 200px; }
+  .pl-input-sm { padding: 3px 5px; border: 1.5px solid #81c784; border-radius: 2px; background: #fff; font-size: 12px; color: #1a4025; width: 60px; text-align: center; }
+  .pl-input-med { padding: 3px 5px; border: 1.5px solid #81c784; border-radius: 2px; background: #fff; font-size: 12px; color: #1a4025; width: 80px; text-align: right; }
+  .pl-section-divider { border: none; border-top: 1px dashed #81c784; margin: 8px 0; }
+  .pl-gst-row { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; flex-wrap: wrap; }
+  .pl-btn-row { display: flex; gap: 10px; justify-content: center; padding-top: 10px; border-top: 1px solid #a5d6a7; margin-top: 8px; }
+  .pl-btn { padding: 5px 22px; border-radius: 3px; font-size: 13px; font-weight: 600; cursor: pointer; border: 1px solid #999; }
+  .pl-btn-save, .pl-btn-next { background: #c8e6c9; color: #1a4025; }
+  .pl-btn-close { background: #e74c3c; color: #fff; border-color: #c0392b; }
+  .pl-btn:hover { filter: brightness(0.9); }
+  .pl-trade-box { border: 1px solid #81c784; border-radius: 4px; padding: 6px 8px; text-align: center; background: #fff; margin-bottom: 8px; }
+  .pl-trade-title { font-size: 10px; font-weight: 700; color: #c0392b; }
+  .pl-trade-badge { background: #1a5a30; color: #fff; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 2px; margin-top: 2px; display: inline-block; }
+  .pl-hsn-box { border: 1px solid #81c784; border-radius: 4px; padding: 6px 8px; text-align: center; background: #fff; }
+  .pl-hsn-title { font-size: 10px; font-weight: 700; color: #1a4025; }
+  .pl-hsn-badge { background: #e8a000; color: #fff; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 2px; margin-top: 2px; display: inline-block; }
+
+  /* ============ PRODUCT LIST MODAL ============ */
+  #product-list-overlay { display: none; position: fixed; inset: 0; z-index: 10000; background: rgba(0,0,0,0.75); backdrop-filter: blur(3px); align-items: center; justify-content: center; }
+  #product-list-overlay.show { display: flex; }
+  #product-list-modal { background: #d4edda; border: 2px solid #4caf50; border-radius: 4px; width: 1100px; max-width: 98vw; max-height: 90vh; box-shadow: 0 10px 50px rgba(0,0,0,0.9); overflow: hidden; font-family: 'Open Sans', sans-serif; animation: modalIn 0.18s ease; display: flex; flex-direction: column; }
+  .plist-titlebar { background: linear-gradient(90deg, #1a5a2a 0%, #2e7d32 50%, #1a5a2a 100%); border-bottom: 2px solid #4caf50; padding: 5px 12px; display: flex; align-items: center; justify-content: space-between; }
+  .plist-titlebar-title { font-family: 'Rajdhani', sans-serif; font-size: 14px; font-weight: 700; color: #fff; letter-spacing: 0.5px; display: flex; align-items: center; gap: 10px; }
+  .plist-close-btn { background: #c0392b; border: none; color: #fff; width: 20px; height: 20px; border-radius: 3px; cursor: pointer; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .plist-close-btn:hover { background: #922b21; }
+  .plist-body { flex: 1; overflow: auto; padding: 0; }
+  .plist-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .plist-table thead tr { background: #1a5a2a; position: sticky; top: 0; z-index: 1; }
+  .plist-table thead th { color: #fff; padding: 5px 7px; text-align: left; font-weight: 700; font-size: 11px; border-right: 1px solid rgba(255,255,255,0.2); white-space: nowrap; cursor: pointer; user-select: none; }
+  .plist-table thead th:hover { background: #2e7d32; }
+  .plist-table tbody tr { border-bottom: 1px solid #a5d6a7; }
+  .plist-table tbody tr:nth-child(even) { background: rgba(165,214,167,0.35); }
+  .plist-table tbody tr:nth-child(odd) { background: #fff; }
+  .plist-table tbody tr.selected-row { background: #1a5a2a !important; color: #fff !important; }
+  .plist-table tbody tr.selected-row td { color: #fff !important; }
+  .plist-table tbody tr:hover:not(.selected-row) { background: rgba(40,184,74,0.15) !important; cursor: pointer; }
+  .plist-table td { padding: 3px 7px; color: #1a4025; border-right: 1px solid #a5d6a7; white-space: nowrap; }
+  .plist-footer { background: #1a5a2a; border-top: 2px solid #4caf50; padding: 5px 12px; display: flex; align-items: center; justify-content: space-between; }
+  .plist-count { color: #c8e6c9; font-size: 11px; }
+  .plist-close-footer { padding: 4px 18px; border-radius: 3px; font-size: 12px; font-weight: 600; cursor: pointer; border: 1px solid #c0392b; background: #e74c3c; color: #fff; }
+  .plist-close-footer:hover { background: #c0392b; }
+
+  /* ============ MODIFY PRODUCT MODAL ============ */
+  #modify-product-overlay { display: none; position: fixed; inset: 0; z-index: 10001; background: rgba(0,0,0,0.78); backdrop-filter: blur(3px); align-items: center; justify-content: center; }
+  #modify-product-overlay.show { display: flex; }
+  .mp-edit-input { padding: 3px 6px; border: 1.5px solid #a5d6a7; border-radius: 2px; background: #fff; font-size: 12px; color: #1a4025; font-family: 'Open Sans', sans-serif; outline: none; transition: border-color 0.15s; width: 100%; }
+  .mp-edit-input:focus { border-color: var(--g-bright); box-shadow: 0 0 0 2px rgba(40,184,74,0.2); background: #f1fff3; }
+  .mp-save-btn { background: #27ae60; color: #fff; border: none; border-radius: 2px; padding: 2px 7px; font-size: 12px; font-weight: 700; cursor: pointer; margin-right: 3px; }
+  .mp-save-btn:hover { background: #1e8e4f; }
+  .mp-del-btn { background: #e74c3c; color: #fff; border: none; border-radius: 2px; padding: 2px 7px; font-size: 12px; font-weight: 700; cursor: pointer; }
+  .mp-del-btn:hover { background: #c0392b; }
+
+  /* ============ PAYMENT VOUCHER MODALS ============ */
+  .pv-overlay { display: none; position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.72); backdrop-filter: blur(3px); align-items: center; justify-content: center; }
+  .pv-overlay.show { display: flex; }
+  .pv-modal { background: #c8e6c9; border: 2px solid #81c784; border-radius: 4px; width: 1020px; max-width: 97vw; max-height: 94vh; box-shadow: 0 10px 50px rgba(0,0,0,0.85); overflow: hidden; font-family: 'Open Sans', sans-serif; animation: modalIn 0.18s ease; display: flex; flex-direction: column; }
+  .pv-titlebar { background: linear-gradient(90deg, #4caf50 0%, #a5d6a7 50%, #4caf50 100%); border-bottom: 2px solid #2e7d32; padding: 4px 10px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+  .pv-titlebar-title { font-family: 'Rajdhani', sans-serif; font-size: 14px; font-weight: 700; color: #1a4a25; }
+  .pv-close-btn { background: #c0392b; border: none; color: #fff; width: 20px; height: 20px; border-radius: 3px; cursor: pointer; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+  .pv-close-btn:hover { background: #922b21; }
+  .pv-body { display: flex; flex: 1; overflow: hidden; }
+  .pv-main { flex: 1; background: #d4edda; padding: 14px 20px 10px; overflow-y: auto; position: relative; }
+  .pv-right-logo { flex: 0 0 160px; background: #c8e6c9; border-left: 2px solid #81c784; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 20px 10px; }
+  .pv-bg { position: absolute; inset: 0; z-index: 0; opacity: 0.06; }
+  .pv-content { position: relative; z-index: 1; }
+  .pv-section-title { font-size: 13px; font-weight: 700; color: #1a4025; background: #a5d6a7; border: 1px solid #81c784; padding: 4px 10px; margin-bottom: 14px; display: inline-block; }
+  .pv-icon-box { width: 68px; height: 68px; background: #81c784; border: 2px solid #4caf50; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 32px; flex-shrink: 0; }
+  .pv-icon-row { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+  .pv-cash-info { font-size: 15px; font-weight: 700; color: #1a4025; }
+  .pv-cash-info span { color: #27ae60; }
+  .pv-field-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+  .pv-lbl { font-size: 12px; font-weight: 700; color: #1a5a30; white-space: nowrap; min-width: 80px; }
+  .pv-lbl-cyan { font-size: 12px; font-weight: 700; color: #0097a7; white-space: nowrap; }
+  .pv-input { padding: 3px 7px; border: 1.5px solid #81c784; border-radius: 2px; background: #fff; font-size: 12px; color: #1a4025; }
+  .pv-input-wide { padding: 3px 7px; border: 1.5px solid #81c784; border-radius: 2px; background: #fff; font-size: 12px; color: #1a4025; flex: 1; }
+  .pv-input-num { padding: 3px 7px; border: 1.5px solid #81c784; border-radius: 2px; background: #fff; font-size: 12px; color: #1a4025; width: 90px; text-align: right; }
+  .pv-exit-hint { font-size: 11px; color: #c0392b; font-weight: 700; }
+  .pv-narr-table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
+  .pv-narr-table th { background: #4caf50; color: #fff; font-size: 12px; font-weight: 700; padding: 5px 8px; text-align: center; border: 1px solid #2e7d32; }
+  .pv-narr-table td { border: 1px solid #81c784; padding: 3px 5px; background: #fff; }
+  .pv-narr-input { width: 100%; border: none; outline: none; font-size: 12px; color: #1a4025; background: transparent; font-family: 'Open Sans', sans-serif; }
+  .pv-narr-amount { width: 85px; padding: 3px 5px; border: none; outline: none; font-size: 12px; color: #1a4025; background: transparent; text-align: right; font-family: 'Open Sans', sans-serif; }
+  .pv-total-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .pv-total-lbl { font-size: 12px; font-weight: 700; color: #1a5a30; }
+  .pv-total-val { font-size: 13px; font-weight: 700; color: #1a4025; background: #fff; border: 1.5px solid #81c784; padding: 3px 12px; border-radius: 2px; min-width: 100px; text-align: right; }
+  .pv-btn-row { display: flex; gap: 10px; justify-content: center; margin-top: 16px; padding-top: 12px; border-top: 1px solid #a5d6a7; }
+  .pv-btn { padding: 5px 24px; border-radius: 3px; font-size: 13px; font-weight: 600; cursor: pointer; border: 1.5px solid #999; }
+  .pv-btn-save { background: #c8e6c9; color: #1a4025; }
+  .pv-btn-next { background: #c8e6c9; color: #1a4025; }
+  .pv-btn-close { background: #e74c3c; color: #fff; border-color: #c0392b; }
+  .pv-btn:hover { filter: brightness(0.9); }
+  .b-accuracy-text { font-family: 'Rajdhani', sans-serif; font-size: 15px; font-weight: 700; color: #c0392b; letter-spacing: 1px; text-align: center; }
+
+  /* ============ GENERIC INFO MODAL ============ */
+  #generic-overlay { display: none; position: fixed; inset: 0; z-index: 10002; background: rgba(0,0,0,0.72); backdrop-filter: blur(3px); align-items: center; justify-content: center; }
+  #generic-overlay.show { display: flex; }
+  #generic-modal { background: #d4edda; border: 2px solid #4caf50; border-radius: 6px; width: 700px; max-width: 96vw; max-height: 90vh; box-shadow: 0 10px 50px rgba(0,0,0,0.8); overflow: hidden; font-family: 'Open Sans', sans-serif; animation: modalIn 0.18s ease; display: flex; flex-direction: column; }
+  .gm-titlebar { background: linear-gradient(90deg, #1a5a2a 0%, #2e7d32 50%, #1a5a2a 100%); border-bottom: 2px solid #4caf50; padding: 5px 12px; display: flex; align-items: center; justify-content: space-between; }
+  .gm-titlebar-title { font-family: 'Rajdhani', sans-serif; font-size: 14px; font-weight: 700; color: #fff; }
+  .gm-close-btn { background: #c0392b; border: none; color: #fff; width: 20px; height: 20px; border-radius: 3px; cursor: pointer; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+  .gm-close-btn:hover { background: #922b21; }
+  .gm-body { padding: 20px 24px; flex: 1; overflow-y: auto; }
+  .gm-body h3 { font-family: 'Rajdhani', sans-serif; font-size: 16px; color: #1a5a30; margin-bottom: 14px; }
+  .gm-form-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .gm-lbl { font-size: 12px; font-weight: 700; color: #1a4025; min-width: 130px; }
+  .gm-input { padding: 4px 8px; border: 1.5px solid #81c784; border-radius: 2px; background: #fff; font-size: 12px; color: #1a4025; flex: 1; }
+  .gm-select { padding: 4px 6px; border: 1.5px solid #81c784; border-radius: 2px; background: #fff; font-size: 12px; color: #1a4025; flex: 1; }
+  .gm-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .gm-table thead tr { background: #1a5a2a; }
+  .gm-table thead th { color: #fff; padding: 5px 8px; text-align: left; font-size: 11px; font-weight: 700; border-right: 1px solid rgba(255,255,255,0.2); }
+  .gm-table tbody tr:nth-child(even) { background: rgba(165,214,167,0.3); }
+  .gm-table tbody tr:nth-child(odd) { background: #fff; }
+  .gm-table tbody tr:hover { background: rgba(40,184,74,0.15) !important; }
+  .gm-table td { padding: 4px 8px; color: #1a4025; border-bottom: 1px solid #a5d6a7; border-right: 1px solid #c8e6c9; }
+  .gm-btn-row { display: flex; gap: 10px; justify-content: center; padding: 12px; border-top: 1px solid #a5d6a7; }
+  .gm-btn { padding: 5px 20px; border-radius: 3px; font-size: 13px; font-weight: 600; cursor: pointer; border: 1px solid #999; }
+  .gm-btn-save { background: #c8e6c9; color: #1a4025; }
+  .gm-btn-close { background: #e74c3c; color: #fff; border-color: #c0392b; }
+  .gm-btn:hover { filter: brightness(0.9); }
+
+  /* toast */
+  #save-toast { position: fixed; top: 80px; left: 50%; transform: translateX(-50%); background: #1e8e3e; color: #fff; padding: 8px 24px; border-radius: 4px; font-size: 13px; font-weight: 700; z-index: 99999; display: none; box-shadow: 0 4px 16px rgba(0,0,0,0.4); }
+  #save-toast.show { display: block; animation: fadeToast 2.5s forwards; }
+  @keyframes fadeToast { 0%{opacity:1} 70%{opacity:1} 100%{opacity:0} }
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="bg-layer"></div>
+  <div class="bg-grid"></div>
+  <div class="bg-world"></div>
+  <div class="bg-calculator"></div>
+  <div class="bg-ledger"></div>
+
+  <!-- HEADER -->
+  <div id="header">
+    <div class="hdr-left">
+      <div class="qr-box">
+        <svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" fill="white"/>
+          <rect x="4" y="4" width="16" height="16" fill="none" stroke="#000" stroke-width="1.5"/>
+          <rect x="6" y="6" width="12" height="12" fill="#000"/>
+          <rect x="8" y="8" width="8" height="8" fill="white"/>
+          <rect x="10" y="10" width="4" height="4" fill="#000"/>
+          <rect x="28" y="4" width="16" height="16" fill="none" stroke="#000" stroke-width="1.5"/>
+          <rect x="30" y="6" width="12" height="12" fill="#000"/>
+          <rect x="32" y="8" width="8" height="8" fill="white"/>
+          <rect x="34" y="10" width="4" height="4" fill="#000"/>
+          <rect x="4" y="28" width="16" height="16" fill="none" stroke="#000" stroke-width="1.5"/>
+          <rect x="6" y="30" width="12" height="12" fill="#000"/>
+          <rect x="8" y="32" width="8" height="8" fill="white"/>
+          <rect x="10" y="34" width="4" height="4" fill="#000"/>
+          <rect x="28" y="28" width="4" height="4" fill="#000"/>
+          <rect x="34" y="28" width="4" height="4" fill="#000"/>
+          <rect x="40" y="28" width="4" height="4" fill="#000"/>
+          <rect x="28" y="34" width="4" height="4" fill="#000"/>
+          <rect x="36" y="34" width="8" height="4" fill="#000"/>
+          <rect x="28" y="40" width="8" height="4" fill="#000"/>
+          <rect x="40" y="40" width="4" height="4" fill="#000"/>
+        </svg>
+      </div>
+      <div class="company-block">
+        <div class="check-name">
+          <span class="check-icon">✔</span>
+          <span class="company-name">SWETHA.L &nbsp;( REG:2513721108045 )</span>
+        </div>
+        <div class="main-sys">Main System</div>
+      </div>
+    </div>
+    <div class="hdr-center">
+      <div id="clock-time">00:00:00</div>
+      <div id="clock-date">Loading...</div>
+    </div>
+    <div class="hdr-right">
+      <div class="hdr-icon-btn" title="Notifications" style="position:relative;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <span class="notif-badge"></span>
+      </div>
+      <div class="hdr-icon-btn wa" title="WhatsApp">
+        <svg viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.37 5.06L2 22l5.11-1.34A9.93 9.93 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm4.93 13.93c-.2.57-1.19 1.1-1.64 1.17-.42.06-.96.09-1.54-.1-.36-.12-.82-.28-1.4-.55-2.44-1.05-4.03-3.5-4.15-3.66-.12-.16-.98-1.3-.98-2.48s.62-1.76.84-2c.22-.24.48-.3.64-.3h.46c.15 0 .35-.06.55.42.2.5.68 1.66.74 1.78.06.12.1.26.02.42-.08.16-.12.26-.24.4l-.36.42c-.12.12-.24.26-.1.5.14.24.62.99 1.33 1.6.91.8 1.68 1.05 1.92 1.17.24.12.38.1.52-.06l.7-.82c.14-.18.28-.14.48-.08l1.52.72c.22.1.36.16.42.26.06.1.06.56-.14 1.13z"/></svg>
+      </div>
+      <div class="hdr-icon-btn gm" title="Gmail">
+        <svg viewBox="0 0 24 24" fill="white"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      </div>
+      <div class="hdr-icon-btn pw" title="Logout">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <div id="navbar">
+    <!-- DATA INPUT -->
+    <div class="nav-item">
+      <button class="nav-btn" onclick="toggleDrop(this)">
+        <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="30" height="30"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10,9 9,9 8,9"/></svg>
+        <div class="nav-label-wrap">Data Input <span class="nav-arrow">▾</span></div>
+      </button>
+      <div class="dropdown">
+        <div class="flyout-item" id="fi-accounts">
+          <div class="flyout-trigger" onclick="toggleFlyout('fi-accounts', event)">
+            <span>Accounts &amp; Financial Management</span><span class="flyout-arrow">▶</span>
+          </div>
+          <div class="flyout-panel">
+            <div class="flyout-panel-header">Accounts &amp; Financial Management</div>
+            <div class="flyout-sub-item" id="fi-acct-master">
+              <div class="flyout-trigger" onclick="toggleSubFlyout('fi-acct-master', event)">
+                <span>Accounting Master</span><span class="flyout-arrow">▶</span>
+              </div>
+              <div class="flyout-sub-panel">
+                <div class="flyout-sub-panel-header">Master of Financial Accounts</div>
+                <a href="#" onclick="openMasterLedgerModal(); return false;">New Master Ledgers</a>
+                <a href="#" onclick="openGeneric('Modify Ledgers','modifyLedgers'); return false;">Modify Ledgers</a>
+                <a href="#" onclick="openGeneric('View Ledgers','viewLedgers'); return false;">View Ledgers</a>
+                <a href="#" onclick="openGeneric('View Ledger Groups','viewGroups'); return false;">View Ledger Groups</a>
+                <a href="#" onclick="openGeneric('Opening Pending Bills','pendingBills'); return false;">Opening Pending Bills</a>
+                <a href="#" onclick="openGeneric('Opening Balances','openingBal'); return false;">Opening Balances</a>
+                <a href="#" class="exit-btn" onclick="closeAll()">Exit</a>
+              </div>
+            </div>
+            <a href="#" onclick="openGeneric('Journal Voucher','journalVoucher'); return false;">Journal Voucher</a>
+            <div class="flyout-sub-item" id="fi-payment-voucher">
+              <div class="flyout-trigger" onclick="toggleSubFlyout('fi-payment-voucher', event)">
+                <span>Payment Voucher</span><span class="flyout-arrow">▶</span>
+              </div>
+              <div class="flyout-sub-panel">
+                <div class="flyout-sub-panel-header">Payment Voucher</div>
+                <div class="flyout-sub-item" id="fi-pv-received">
+                  <div class="flyout-trigger" onclick="openPaymentReceivedModal(); event.stopPropagation();">
+                    <span>Payment Received</span>
+                  </div>
+                </div>
+                <div class="flyout-sub-item" id="fi-pv-issued">
+                  <div class="flyout-trigger" onclick="openPaymentIssuedModal(); event.stopPropagation();">
+                    <span>Payment Issued</span>
+                  </div>
+                </div>
+                <a href="#" onclick="openGeneric('Return Cheque Entry','returnCheque'); return false;">Return Cheque Entry</a>
+                <a href="#" class="exit-btn" onclick="closeAll()">Exit</a>
+              </div>
+            </div>
+            <a href="#" onclick="openGeneric('Taxable Fixed Assets','fixedAssets'); return false;">Taxable Fixed Assets</a>
+            <a href="#" onclick="openGeneric('Bank Reconciliation','bankRecon'); return false;">Bank Reconciliation</a>
+            <a href="#" class="exit-btn" onclick="closeAll()">Exit</a>
+          </div>
+        </div>
+        <div class="flyout-item" id="fi-ops">
+          <div class="flyout-trigger" onclick="toggleFlyout('fi-ops', event)">
+            <span>Operations &amp; Inventory Management</span><span class="flyout-arrow">▶</span>
+          </div>
+          <div class="flyout-panel">
+            <div class="flyout-panel-header">Operations &amp; Inventory System</div>
+            <div class="flyout-sub-item" id="fi-product-master">
+              <div class="flyout-trigger" onclick="toggleSubFlyout('fi-product-master', event)">
+                <span>Product Master Setup</span><span class="flyout-arrow">▶</span>
+              </div>
+              <div class="flyout-sub-panel">
+                <div class="flyout-sub-panel-header">Product Master Setup</div>
+                <a href="#" onclick="openProductLedgerModal(); return false;">New Product Ledger</a>
+                <a href="#" onclick="openModifyProductModal(); return false;">Modify Product Ledger</a>
+                <a href="#" onclick="openGeneric('Product Group List','productGroups'); return false;">Product Group List</a>
+                <a href="#" onclick="openGeneric('Product Price Labeling','priceLabel'); return false;">Product Price Labeling</a>
+                <a href="#" onclick="openGeneric('Product Error - Duplicate','dupError'); return false;">Product Error - Duplicate</a>
+                <a href="#" onclick="openGeneric('Tax Rate Modify','taxRate'); return false;">Tax Rate Modify</a>
+                <a href="#" class="exit-btn" onclick="closeAll()">Exit</a>
+              </div>
+            </div>
+            <a href="#" onclick="openGeneric('Product Planning & Control','prodPlan'); return false;">Product Planning &amp; Control</a>
+            <a href="#" onclick="openGeneric('Outward Invoice (Sales)','salesInv'); return false;">Outward Invoice (Sales)</a>
+            <a href="#" onclick="openGeneric('Reference Master','refMaster'); return false;">Reference Master</a>
+            <a href="#" class="exit-btn" onclick="closeAll()">Exit</a>
+          </div>
+        </div>
+        <div class="flyout-item" id="fi-service">
+          <div class="flyout-trigger" onclick="toggleFlyout('fi-service', event)">
+            <span>Service Industry Management</span><span class="flyout-arrow">▶</span>
+          </div>
+          <div class="flyout-panel">
+            <div class="flyout-panel-header">Service Industry</div>
+            <a href="#" onclick="openGeneric('Service Master','serviceMaster'); return false;">Service Master</a>
+            <a href="#" onclick="openGeneric('Service Order','serviceOrder'); return false;">Service Order</a>
+            <a href="#" onclick="openGeneric('Service Invoice','serviceInv'); return false;">Service Invoice</a>
+            <a href="#" onclick="openGeneric('Service Receipt','serviceReceipt'); return false;">Service Receipt</a>
+            <a href="#" class="exit-btn" onclick="closeAll()">Exit</a>
+          </div>
+        </div>
+        <div class="flyout-item" id="fi-hr">
+          <div class="flyout-trigger" onclick="toggleFlyout('fi-hr', event)">
+            <span>Human Resource Management</span><span class="flyout-arrow">▶</span>
+          </div>
+          <div class="flyout-panel">
+            <div class="flyout-panel-header">Human Resource</div>
+            <a href="#" onclick="openGeneric('Employee Master','empMaster'); return false;">Employee Master</a>
+            <a href="#" onclick="openGeneric('Attendance Entry','attendance'); return false;">Attendance Entry</a>
+            <a href="#" onclick="openGeneric('Leave Management','leave'); return false;">Leave Management</a>
+            <a href="#" onclick="openGeneric('Payroll Processing','payroll'); return false;">Payroll Processing</a>
+            <a href="#" class="exit-btn" onclick="closeAll()">Exit</a>
+          </div>
+        </div>
+        <a href="#" class="exit-btn" onclick="closeAll()">Exit</a>
+      </div>
+    </div>
+
+    <div class="nav-sep"></div>
+    <div class="nav-item">
+      <button class="nav-btn" onclick="toggleDrop(this)">
+        <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="30" height="30"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        <div class="nav-label-wrap">Global Trade <span class="nav-arrow">▾</span></div>
+      </button>
+      <div class="dropdown">
+        <a href="#" onclick="openGeneric('Market Buyer Research','mktResearch'); return false;">Market Buyer Research</a>
+        <a href="#" onclick="openGeneric('Order Processing','orderProc'); return false;">Order Processing</a>
+        <a href="#" onclick="openGeneric('Cost Process','costProc'); return false;">Cost Process</a>
+        <a href="#" onclick="openGeneric('Payment Process','payProc'); return false;">Payment Process</a>
+        <a href="#" onclick="openGeneric('Pre-Shipment Process','preShip'); return false;">Pre-Shipment Process</a>
+        <a href="#" onclick="openGeneric('Clearing & Forwarding Process','cfProc'); return false;">Clearing &amp; Forwarding Process</a>
+        <a href="#" onclick="openGeneric('Post Shipment Process','postShip'); return false;">Post Shipment Process</a>
+        <a href="#" class="exit-btn" onclick="closeAll()">Exit</a>
+      </div>
+    </div>
+
+    <div class="nav-sep"></div>
+    <div class="nav-item">
+      <button class="nav-btn" onclick="toggleDrop(this)">
+        <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="30" height="30"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        <div class="nav-label-wrap">Reports <span class="nav-arrow">▾</span></div>
+      </button>
+      <div class="dropdown">
+        <a href="#" onclick="openGeneric('Daily Accounts Books','dailyAccts'); return false;">Daily Accounts Books</a>
+        <a href="#" onclick="openGeneric('Ledgers Account Books','ledgerBooks'); return false;">Ledgers Account Books</a>
+        <a href="#" onclick="openGeneric('Sales Tax Reports','salesTax'); return false;">Sales Tax Reports</a>
+        <a href="#" onclick="openGeneric('Management Information','mgmtInfo'); return false;">Management Information</a>
+        <a href="#" onclick="openGeneric('Financial Model Information','finModel'); return false;">Financial Model Information</a>
+        <a href="#" class="exit-btn" onclick="closeAll()">Exit</a>
+      </div>
+    </div>
+
+    <div class="nav-sep"></div>
+    <div class="nav-item">
+      <button class="nav-btn" onclick="toggleDrop(this)">
+        <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="30" height="30"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        <div class="nav-label-wrap">Progress <span class="nav-arrow">▾</span></div>
+      </button>
+      <div class="dropdown">
+        <a href="#" onclick="openGeneric('Files Backup','filesBackup'); return false;">Files Backup</a>
+        <a href="#" onclick="openGeneric('Files Restore','filesRestore'); return false;">Files Restore</a>
+        <a href="#" onclick="openGeneric('Financial Account','finAcct'); return false;">Financial Account</a>
+        <a href="#" onclick="openGeneric('Annual Posting','annualPost'); return false;">Annual Posting</a>
+        <a href="#" onclick="openGeneric('MS Excel Calculator','excelCalc'); return false;">MS Excel Calculator</a>
+        <a href="#" class="exit-btn" onclick="closeAll()">Exit</a>
+      </div>
+    </div>
+
+    <div class="nav-sep"></div>
+    <div class="nav-item">
+      <button class="nav-btn" onclick="toggleDrop(this)">
+        <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="30" height="30"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        <div class="nav-label-wrap">Settings <span class="nav-arrow">▾</span></div>
+      </button>
+      <div class="dropdown">
+        <a href="#" onclick="openGeneric('Files','settingsFiles'); return false;">Files</a>
+        <a href="#" onclick="openGeneric('Data Utilities','dataUtil'); return false;">Data Utilities</a>
+        <a href="#" onclick="openGeneric('Company Login','compLogin'); return false;">Company Login</a>
+        <a href="#" onclick="openGeneric('Create Company','createComp'); return false;">Create Company</a>
+        <a href="#" onclick="openGeneric('Business Setup-1','bizSetup1'); return false;">Business Setup-1</a>
+        <a href="#" onclick="openGeneric('Business Setup-2','bizSetup2'); return false;">Business Setup-2</a>
+        <a href="#" onclick="openGeneric('Modify Authorization','modAuth'); return false;">Modify Authorization</a>
+        <a href="#" onclick="openGeneric('Modify Password','modPass'); return false;">Modify Password</a>
+        <a href="#" onclick="openGeneric('Help','helpMenu'); return false;">Help</a>
+        <a href="#" class="exit-btn" onclick="closeAll()">Exit</a>
+      </div>
+    </div>
+
+    <div class="nav-sep"></div>
+    <div class="nav-item modify-nav-item">
+      <button class="nav-btn" onclick="toggleDrop(this)">
+        <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="30" height="30"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        <div class="nav-label-wrap">Modify <span class="nav-arrow">▾</span></div>
+      </button>
+      <div class="dropdown modify-panel">
+        <div class="modify-panel-header">Search and Modify</div>
+        <div class="modify-panel-body">
+          <div class="modify-col">
+            <a href="#" onclick="openGeneric('Search Data','searchData'); return false;">🔍 Data</a>
+            <a href="#" onclick="openGeneric('Search Ledger','searchLedger'); return false;">🔍 Search Ledger</a>
+            <a href="#" onclick="openGeneric('Account','modAcct'); return false;">➕ Account</a>
+            <a href="#" onclick="openGeneric('Narration Modify','modNarr'); return false;">📝 Narration</a>
+            <a href="#" onclick="openGeneric('Billing No. Modify','modBill'); return false;">📄 Billing No.</a>
+            <a href="#" onclick="openGeneric('Reference No. Modify','modRef'); return false;">🔗 Reference No.</a>
+            <a href="#" onclick="openGeneric('All Transaction','allTrans'); return false;">📅 All Transaction</a>
+            <a href="#" onclick="openGeneric('Records Checking','recCheck'); return false;">⏰ Records Checking</a>
+            <a href="#" onclick="openGeneric('Date Modify','dateModify'); return false;">📅 Date Modify</a>
+            <a href="#" onclick="openGeneric('Pending Bills','pendBills'); return false;">⏳ Pending Bills</a>
+            <a href="#" onclick="openGeneric('Inventory (Purchase Sales)','invMod'); return false;">🏢 Inventory (Purchase Sales)</a>
+            <a href="#" onclick="openGeneric('Receipts & Payments Voucher','rcptPay'); return false;">🧾 Receipts &amp; Payments Voucher</a>
+            <a href="#" onclick="openGeneric('Salary Voucher','salVouch'); return false;">👤 Salary Voucher</a>
+            <a href="#" onclick="openGeneric('Creditors Balance','credBal'); return false;">💰 Creditors Balance</a>
+          </div>
+          <div class="modify-col modify-col-right">
+            <a href="#" onclick="openGeneric('Date Wise List','dateList'); return false;">📅 Date Wise List</a>
+            <a href="#" onclick="openGeneric('Duplicate Entry Account','dupEntry'); return false;">🔄 Duplicate Entry Account</a>
+            <div class="modify-section-divider"></div>
+            <a href="#" onclick="openGeneric('Cash Balance - Checking','cashCheck'); return false;">💵 Cash Balance - Checking</a>
+            <a href="#" onclick="openGeneric('Bank Balance - Checking','bankCheck'); return false;">🏦 Bank Balance - Checking</a>
+            <a href="#" onclick="openGeneric('Group Ledgers Change','grpLedger'); return false;">👥 Group Ledgers Change</a>
+            <div class="modify-spacer"></div>
+            <a href="#" class="exit-btn" onclick="closeAll()">Exit</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN BODY -->
+  <div id="main-body">
+    <div class="logo-bottom-right">
+      <div style="color:#5dd87a;font-family:'Rajdhani',sans-serif;font-size:28px;font-weight:700;letter-spacing:2px;text-shadow:0 0 20px rgba(93,216,122,0.5);">B-ACCURACY</div>
+      <div style="color:rgba(255,255,255,0.4);font-size:10px;letter-spacing:1px;">BIZTECH INTELLIGENCE ERP</div>
+    </div>
+  </div>
+
+  <!-- STATUS BAR -->
+  <div id="statusbar">
+    <div class="sb-left">
+      <div class="india-flag">
+        <div class="flag-saffron"></div>
+        <div class="flag-white"><span class="ashoka-wheel">☸</span></div>
+        <div class="flag-green"></div>
+      </div>
+      <div class="sb-gst">GST Type :- <strong>Gst Registered Dealer</strong></div>
+    </div>
+    <div class="sb-center">BizTech Intelligence Management ERP System</div>
+    <div class="sb-right">(Product Type : <strong>Premier Plus</strong>)</div>
+  </div>
+</div>
+
+<!-- ===================== MASTER LEDGER MODAL ===================== -->
+<div id="modal-overlay">
+  <div id="master-ledger-modal">
+    <div class="ml-titlebar">
+      <div class="ml-titlebar-title">📋 New Master Ledger — Accounting Master</div>
+      <button class="ml-close-btn" onclick="closeMasterLedgerModal()">✕</button>
+    </div>
+    <div class="ml-body">
+      <div class="ml-left">
+        <div class="ml-form-row">
+          <label>Ledger No. <span class="ml-req">*</span></label>
+          <input type="text" class="ml-input-num" value="1">
+          <span class="ml-hint">Auto / Manual</span>
+        </div>
+        <div class="ml-form-row">
+          <label>Ledger Code <span class="ml-req">*</span></label>
+          <input type="text" class="ml-input-code" value="">
+          <input type="text" class="ml-input-desc" placeholder="Short Description">
+        </div>
+        <div class="ml-form-row">
+          <label>Ledger Name <span class="ml-req">*</span></label>
+          <input type="text" class="ml-input-head" placeholder="Full Ledger Name">
+        </div>
+        <div class="ml-form-row">
+          <label>Under Group <span class="ml-req">*</span></label>
+          <select class="ml-input-head" style="flex:1">
+            <option>Capital Account</option><option>Current Assets</option><option>Current Liabilities</option>
+            <option>Fixed Assets</option><option>Sales Account</option><option>Purchase Account</option>
+            <option>Expenses (Direct)</option><option>Expenses (Indirect)</option>
+          </select>
+        </div>
+        <div class="ml-opening-section">
+          <div class="ml-opening-row"><label>Opening Date :</label><input type="text" class="ml-input-date" placeholder="DD/MM/YYYY"></div>
+          <div class="ml-opening-row"><label>Opening Balance :</label><input type="text" class="ml-input-amount" placeholder="0.00">
+            <select style="padding:3px 4px;border:1.5px solid #81c784;border-radius:2px;background:#fff;font-size:12px;"><option>Dr</option><option>Cr</option></select>
+          </div>
+        </div>
+        <div class="ml-btn-row">
+          <button class="ml-btn ml-btn-save" onclick="showToast('Ledger Saved!')">Save</button>
+          <button class="ml-btn ml-btn-next">Next</button>
+          <button class="ml-btn ml-btn-close" onclick="closeMasterLedgerModal()">Close</button>
+        </div>
+      </div>
+      <div class="ml-chart">
+        <div class="ml-chart-head">
+          <div>
+            <div class="ml-chart-title">— Chart of Accounts —</div>
+            <div class="ml-chart-sub">Standard Accounting Groups</div>
+          </div>
+        </div>
+        <table class="ml-chart-table">
+          <tr><td class="ctn">1</td><td class="ctname">Capital Account</td><td class="ctdesc">Owner's equity, capital invested</td></tr>
+          <tr><td class="ctn">2</td><td class="ctname">Loans (Liability)</td><td class="ctdesc">Long/short term borrowings</td></tr>
+          <tr><td class="ctn">3</td><td class="ctname">Current Liabilities</td><td class="ctdesc">Creditors, outstanding expenses</td></tr>
+          <tr><td class="ctn">4</td><td class="ctname">Fixed Assets</td><td class="ctdesc">Land, building, machinery</td></tr>
+          <tr><td class="ctn">5</td><td class="ctname">Current Assets</td><td class="ctdesc">Debtors, cash, bank, stock</td></tr>
+          <tr><td class="ctn">6</td><td class="ctname">Sales Account</td><td class="ctdesc">Revenue from sales</td></tr>
+          <tr><td class="ctn">7</td><td class="ctname">Purchase Account</td><td class="ctdesc">Goods purchased for resale</td></tr>
+          <tr><td class="ctn">8</td><td class="ctname">Expenses (Direct)</td><td class="ctdesc">Manufacturing/direct costs</td></tr>
+          <tr><td class="ctn">9</td><td class="ctname">Expenses (Indirect)</td><td class="ctdesc">Admin, selling expenses</td></tr>
+          <tr><td class="ctn">10</td><td class="ctname">Income (Other)</td><td class="ctdesc">Interest, commission received</td></tr>
+        </table>
+      </div>
+      <div class="ml-side">
+        <div class="ml-side-btn" onclick="openGeneric('Opening Balances','openingBal')"><span class="ml-side-btn-icon">📖</span><span class="ml-side-btn-label">Opening Balances</span></div>
+        <div class="ml-side-btn" onclick="openGeneric('View Ledger List','viewLedgers')"><span class="ml-side-btn-icon">📋</span><span class="ml-side-btn-label">View Ledger List</span></div>
+        <div class="ml-side-btn" onclick="openGeneric('Modify Ledger','modifyLedgers')"><span class="ml-side-btn-icon">✏️</span><span class="ml-side-btn-label">Modify Ledger</span></div>
+        <div class="ml-side-btn" onclick="openGeneric('Pending Bills','pendingBills')"><span class="ml-side-btn-icon">🔗</span><span class="ml-side-btn-label">Pending Bills</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PRODUCT LEDGER MODAL ===================== -->
+<div id="product-ledger-overlay">
+  <div id="product-ledger-modal">
+    <div class="pl-titlebar">
+      <div class="pl-titlebar-title">🛒 Product Master — Master Chart of Product Management</div>
+      <button class="pl-close-btn" onclick="closeProductLedgerModal()">✕</button>
+    </div>
+    <div class="pl-body">
+      <div class="pl-main">
+        <div class="pl-form-header">
+          <div class="pl-chart-title">— Master Chart of Product Management —</div>
+        </div>
+        <div class="pl-date-row">
+          <span class="pl-label">Date</span>
+          <input type="text" class="pl-input" id="pl-date" style="width:90px;" value="">
+        </div>
+        <hr class="pl-section-divider">
+        <div class="pl-row">
+          <span class="pl-label" style="min-width:100px;">Product Name</span>
+          <input type="text" class="pl-input-wide" id="pl-name" placeholder="Enter Product Name">
+          <span class="pl-label">Select Unit</span>
+          <select class="pl-select" id="pl-unit" style="width:68px;">
+            <option>NOS</option><option>KG</option><option>GM</option><option>LT</option><option>ML</option>
+            <option>MTR</option><option>CM</option><option>FT</option><option>MT</option><option>PCS</option>
+          </select>
+          <span class="pl-label">Per Unit Size</span>
+          <input type="number" class="pl-input-sm" id="pl-unit-size" value="0">
+          <span class="pl-label">Package Unit (UQC)</span>
+          <select class="pl-select" id="pl-pkg-unit" style="width:58px;">
+            <option>PCS</option><option>BOX</option><option>BAG</option><option>PKT</option>
+            <option>CTN</option><option>ROL</option><option>BTL</option><option>ROD</option><option>TAB</option>
+          </select>
+        </div>
+        <div class="pl-row">
+          <span class="pl-label" style="min-width:100px;">Product Details</span>
+          <input type="text" class="pl-input-wide" id="pl-details" placeholder="Additional Description">
+          <span class="pl-label">HSN Code</span>
+          <input type="text" class="pl-input-sm" id="pl-hsn-num" value="0" style="width:40px;">
+          <input type="text" class="pl-input" id="pl-hsn-code" placeholder="HSN Code" style="width:90px;">
+        </div>
+        <hr class="pl-section-divider">
+        <div class="pl-gst-row">
+          <span class="pl-label">GST Y/N</span>
+          <select class="pl-select" id="pl-gst-yn" style="width:44px;">
+            <option value="N">N</option><option value="Y">Y</option>
+          </select>
+          <span style="margin-left:12px;" class="pl-label">Tax %</span>
+          <select class="pl-select" id="pl-tax" style="width:58px;">
+            <option value="0">0.000</option><option value="5">5.000</option>
+            <option value="12">12.000</option><option value="18">18.000</option><option value="28">28.000</option>
+          </select>
+          <span style="margin-left:12px;" class="pl-label">Purchase Cost</span>
+          <input type="number" class="pl-input-med" id="pl-purchase" value="0.00" step="0.01" oninput="calcSalePrice()">
+          <button style="padding:3px 8px;background:#1a5a30;color:#fff;border:none;border-radius:2px;font-size:11px;cursor:pointer;margin-left:8px;" onclick="calcSalePrice()">Click for Sale Price</button>
+          <span class="pl-label" style="margin-left:8px;">Gross Profit %</span>
+          <input type="number" class="pl-input-sm" id="pl-gp" value="0.00" step="0.01" oninput="calcSalePrice()" style="width:54px;">
+          <span class="pl-label" style="margin-left:8px;">Sale Price</span>
+          <input type="number" class="pl-input-med" id="pl-sale" value="0.00" step="0.01">
+          <span class="pl-label" style="margin-left:8px;">Country / Category</span>
+          <input type="text" class="pl-input" id="pl-country" placeholder="Category" style="width:100px;">
+        </div>
+        <div class="pl-gst-row">
+          <span class="pl-label" style="min-width:40px;">M.R.P</span>
+          <input type="number" class="pl-input-med" id="pl-mrp" value="0.00" step="0.01">
+          <span class="pl-label" style="margin-left:14px;">Exp. Date</span>
+          <input type="text" class="pl-input" id="pl-expdate" placeholder="DD/MM/YYYY" style="width:90px;">
+          <span class="pl-label" style="margin-left:14px;">Ref/Batch/Serial No.</span>
+          <input type="text" class="pl-input" id="pl-batch" placeholder="" style="width:140px;">
+        </div>
+        <div class="pl-gst-row">
+          <span class="pl-label">Opening Stock Qty</span>
+          <input type="number" class="pl-input-sm" id="pl-stock-qty1" value="0">
+          <input type="number" class="pl-input-sm" id="pl-stock-qty2" value="0">
+          <span class="pl-label" style="margin-left:14px;">Accept Data Y/N</span>
+          <input type="text" class="pl-input" id="pl-accept" value="" style="width:28px;">
+          <span class="pl-label" style="margin-left:14px;">Stock as on Date</span>
+          <input type="text" class="pl-input" id="pl-stock-date" placeholder="DD/MM/YYYY" style="width:90px;">
+        </div>
+        <div class="pl-gst-row">
+          <span class="pl-label">Re-Order Level</span>
+          <input type="number" class="pl-input-sm" id="pl-reorder" value="0">
+          <span class="pl-label" style="margin-left:24px;">Next Product Y/N</span>
+          <input type="text" class="pl-input" id="pl-next" value="Y" style="width:28px;">
+        </div>
+        <div class="pl-btn-row">
+          <button class="pl-btn pl-btn-save" onclick="saveProduct()">Save</button>
+          <button class="pl-btn pl-btn-next" onclick="saveProductAndNext()">Next</button>
+          <button class="pl-btn pl-btn-close" onclick="closeProductLedgerModal()">Close</button>
+        </div>
+      </div>
+      <div class="pl-side">
+        <div class="pl-side-title">QUICK ACCESS</div>
+        <button class="pl-side-btn" onclick="openGeneric('Opening Stock View','stockView')">
+          <span>👁</span><span class="pl-side-lbl">Opening Stock View</span>
+        </button>
+        <button class="pl-side-btn" onclick="openModifyProductModal()">
+          <span>✏️</span><span class="pl-side-lbl">Modify Product</span>
+        </button>
+        <button class="pl-side-btn" onclick="openProductListModal()">
+          <span>📋</span><span class="pl-side-lbl">List Products</span>
+        </button>
+        <div class="pl-side-divider"></div>
+        <button class="pl-side-btn" onclick="openGeneric('Reference Master','refMaster')">
+          <span>🔗</span><span class="pl-side-lbl">Reference Master</span>
+        </button>
+        <button class="pl-side-btn" onclick="openGeneric('Modify Reference Master','modRefMaster')">
+          <span>🔧</span><span class="pl-side-lbl">Modify Reference Master</span>
+        </button>
+        <div class="pl-side-divider"></div>
+        <div class="pl-trade-box">
+          <div class="pl-trade-title">India<br>Trade Portal</div>
+          <div class="pl-trade-badge">FIEO</div>
+        </div>
+        <div class="pl-hsn-box" style="margin-top:4px;">
+          <div class="pl-hsn-title">Search<br>HSN / GST %</div>
+          <div class="pl-hsn-badge">NATION<br>TAX MARKET</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PRODUCT LIST MODAL ===================== -->
+<div id="product-list-overlay">
+  <div id="product-list-modal">
+    <div class="plist-titlebar">
+      <div class="plist-titlebar-title">
+        <span>📋</span>
+        <span>Product Master — List Products</span>
+        <span id="plist-count-badge" style="background:#2e7d32;color:#fff;font-size:10px;padding:2px 8px;border-radius:10px;margin-left:8px;"></span>
+      </div>
+      <button class="plist-close-btn" onclick="closeProductListModal()">✕</button>
+    </div>
+    <div class="plist-body">
+      <table class="plist-table" id="plist-table">
+        <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>Unit</th>
+            <th>HSN Code</th>
+            <th>Purchase Cost</th>
+            <th>Sale Price</th>
+            <th>MRP</th>
+            <th>GST %</th>
+            <th>Category</th>
+          </tr>
+        </thead>
+        <tbody id="plist-tbody">
+          <tr><td colspan="8" style="text-align:center;padding:20px;color:#555;">No products added yet. Use "New Product Ledger" to add products.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="plist-footer">
+      <span class="plist-count" id="plist-footer-count">0 Products</span>
+      <button class="plist-close-footer" onclick="closeProductListModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== MODIFY PRODUCT MODAL ===================== -->
+<div id="modify-product-overlay">
+  <div id="product-list-modal" style="background:#d4edda;border-color:#4caf50;">
+    <div class="plist-titlebar">
+      <div class="plist-titlebar-title">
+        <span>✏️</span>
+        <span>Modify Product Ledger</span>
+      </div>
+      <button class="plist-close-btn" onclick="closeModifyProductModal()">✕</button>
+    </div>
+    <div class="plist-body">
+      <table class="plist-table" id="mp-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Product Name</th>
+            <th>Unit</th>
+            <th>HSN</th>
+            <th>Purchase Cost</th>
+            <th>Sale Price</th>
+            <th>MRP</th>
+            <th>GST %</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="mp-tbody">
+          <tr><td colspan="9" style="text-align:center;padding:20px;color:#555;">No products to modify.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="plist-footer">
+      <span class="plist-count">Modify existing product entries</span>
+      <button class="plist-close-footer" onclick="closeModifyProductModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PAYMENT RECEIVED MODAL ===================== -->
+<div id="payment-received-overlay" class="pv-overlay">
+  <div class="pv-modal">
+    <div class="pv-titlebar">
+      <div class="pv-titlebar-title">💰 Payment Voucher — Payment Received</div>
+      <button class="pv-close-btn" onclick="closePaymentReceivedModal()">✕</button>
+    </div>
+    <div class="pv-body">
+      <div class="pv-main">
+        <div class="pv-content">
+          <div class="pv-section-title">PAYMENT RECEIVED</div>
+          <div class="pv-icon-row">
+            <div class="pv-icon-box">💵</div>
+            <div class="pv-cash-info">Cash / Bank A/c<br><span>Receiving Payment</span></div>
+          </div>
+          <div class="pv-field-row">
+            <span class="pv-lbl">Voucher No.</span>
+            <input type="text" class="pv-input" value="RV-001" style="width:80px;">
+            <span class="pv-lbl">Date</span>
+            <input type="text" class="pv-input" placeholder="DD/MM/YYYY" style="width:90px;">
+            <span class="pv-lbl">Mode</span>
+            <select class="pv-input" style="width:100px;"><option>Cash</option><option>Cheque</option><option>NEFT</option><option>RTGS</option><option>UPI</option></select>
+          </div>
+          <div class="pv-field-row">
+            <span class="pv-lbl">Received From</span>
+            <input type="text" class="pv-input-wide" placeholder="Party / Ledger Name">
+            <span class="pv-lbl" style="margin-left:10px;">Ref. No.</span>
+            <input type="text" class="pv-input" placeholder="Reference" style="width:120px;">
+          </div>
+          <table class="pv-narr-table">
+            <thead><tr><th style="width:60%">Narration / Particulars</th><th style="width:20%">Cheque No.</th><th style="width:20%">Amount (₹)</th></tr></thead>
+            <tbody>
+              <tr><td><input class="pv-narr-input" placeholder="Being amount received..."></td><td><input class="pv-narr-input"></td><td><input class="pv-narr-amount" placeholder="0.00"></td></tr>
+              <tr><td><input class="pv-narr-input" placeholder=""></td><td><input class="pv-narr-input"></td><td><input class="pv-narr-amount" placeholder="0.00"></td></tr>
+            </tbody>
+          </table>
+          <div class="pv-total-row">
+            <span class="pv-total-lbl">Total Amount :</span>
+            <span class="pv-total-val">₹ 0.00</span>
+          </div>
+          <div class="pv-btn-row">
+            <button class="pv-btn pv-btn-save" onclick="showToast('Payment Received Saved!')">Save</button>
+            <button class="pv-btn pv-btn-next">Next</button>
+            <button class="pv-btn pv-btn-close" onclick="closePaymentReceivedModal()">Close</button>
+          </div>
+        </div>
+      </div>
+      <div class="pv-right-logo">
+        <div style="font-size:40px;margin-bottom:8px;">💵</div>
+        <div class="b-accuracy-text">B-ACCURACY</div>
+        <div style="font-size:10px;color:#555;text-align:center;margin-top:6px;">Payment<br>Received<br>Module</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PAYMENT ISSUED MODAL ===================== -->
+<div id="payment-issued-overlay" class="pv-overlay">
+  <div class="pv-modal">
+    <div class="pv-titlebar">
+      <div class="pv-titlebar-title">💸 Payment Voucher — Payment Issued</div>
+      <button class="pv-close-btn" onclick="closePaymentIssuedModal()">✕</button>
+    </div>
+    <div class="pv-body">
+      <div class="pv-main">
+        <div class="pv-content">
+          <div class="pv-section-title">PAYMENT ISSUED</div>
+          <div class="pv-icon-row">
+            <div class="pv-icon-box">💸</div>
+            <div class="pv-cash-info">Cash / Bank A/c<br><span style="color:#e74c3c;">Issuing Payment</span></div>
+          </div>
+          <div class="pv-field-row">
+            <span class="pv-lbl">Voucher No.</span>
+            <input type="text" class="pv-input" value="PV-001" style="width:80px;">
+            <span class="pv-lbl">Date</span>
+            <input type="text" class="pv-input" placeholder="DD/MM/YYYY" style="width:90px;">
+            <span class="pv-lbl">Mode</span>
+            <select class="pv-input" style="width:100px;"><option>Cash</option><option>Cheque</option><option>NEFT</option><option>RTGS</option><option>UPI</option></select>
+          </div>
+          <div class="pv-field-row">
+            <span class="pv-lbl">Pay To</span>
+            <input type="text" class="pv-input-wide" placeholder="Party / Ledger Name">
+            <span class="pv-lbl" style="margin-left:10px;">Cheque No.</span>
+            <input type="text" class="pv-input" placeholder="Cheque #" style="width:120px;">
+          </div>
+          <table class="pv-narr-table">
+            <thead><tr><th style="width:60%">Narration / Particulars</th><th style="width:20%">Bank / Account</th><th style="width:20%">Amount (₹)</th></tr></thead>
+            <tbody>
+              <tr><td><input class="pv-narr-input" placeholder="Being amount paid to..."></td><td><input class="pv-narr-input"></td><td><input class="pv-narr-amount" placeholder="0.00"></td></tr>
+              <tr><td><input class="pv-narr-input"></td><td><input class="pv-narr-input"></td><td><input class="pv-narr-amount" placeholder="0.00"></td></tr>
+            </tbody>
+          </table>
+          <div class="pv-total-row">
+            <span class="pv-total-lbl">Total Amount :</span>
+            <span class="pv-total-val">₹ 0.00</span>
+          </div>
+          <div class="pv-btn-row">
+            <button class="pv-btn pv-btn-save" onclick="showToast('Payment Issued Saved!')">Save</button>
+            <button class="pv-btn pv-btn-next">Next</button>
+            <button class="pv-btn pv-btn-close" onclick="closePaymentIssuedModal()">Close</button>
+          </div>
+        </div>
+      </div>
+      <div class="pv-right-logo">
+        <div style="font-size:40px;margin-bottom:8px;">💸</div>
+        <div class="b-accuracy-text">B-ACCURACY</div>
+        <div style="font-size:10px;color:#555;text-align:center;margin-top:6px;">Payment<br>Issued<br>Module</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== GENERIC MODAL ===================== -->
+<div id="generic-overlay">
+  <div id="generic-modal">
+    <div class="gm-titlebar">
+      <div class="gm-titlebar-title" id="gm-title">Module</div>
+      <button class="gm-close-btn" onclick="closeGenericModal()">✕</button>
+    </div>
+    <div class="gm-body" id="gm-body">
+    </div>
+  </div>
+</div>
+
+<div id="save-toast"></div>
+
+<script>
+// ============ CLOCK ============
+function updateClock() {
+  const now = new Date();
+  const hh = String(now.getHours()).padStart(2,'0');
+  const mm = String(now.getMinutes()).padStart(2,'0');
+  const ss = String(now.getSeconds()).padStart(2,'0');
+  document.getElementById('clock-time').textContent = `${hh}:${mm}:${ss}`;
+  const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  document.getElementById('clock-date').textContent = `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
+  const today = `${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()}`;
+  const plDate = document.getElementById('pl-date');
+  if (plDate && !plDate.value) plDate.value = today;
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// ============ NAV ============
+function toggleDrop(btn) {
+  const dd = btn.parentElement.querySelector('.dropdown');
+  const isOpen = dd.classList.contains('show');
+  document.querySelectorAll('.dropdown.show').forEach(d => d.classList.remove('show'));
+  document.querySelectorAll('.nav-btn.open').forEach(b => b.classList.remove('open'));
+  document.querySelectorAll('.flyout-item.active, .flyout-sub-item.active').forEach(i => i.classList.remove('active'));
+  if (!isOpen) { dd.classList.add('show'); btn.classList.add('open'); }
+}
+function toggleFlyout(id, e) {
+  e.stopPropagation();
+  const item = document.getElementById(id);
+  const isActive = item.classList.contains('active');
+  const parent = item.closest('.dropdown');
+  parent.querySelectorAll('.flyout-item.active').forEach(i => { if (i !== item) i.classList.remove('active'); });
+  item.classList.toggle('active', !isActive);
+}
+function toggleSubFlyout(id, e) {
+  e.stopPropagation();
+  const item = document.getElementById(id);
+  const isActive = item.classList.contains('active');
+  const parent = item.closest('.flyout-panel');
+  parent.querySelectorAll('.flyout-sub-item.active').forEach(i => { if (i !== item) i.classList.remove('active'); });
+  item.classList.toggle('active', !isActive);
+}
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('#navbar')) {
+    document.querySelectorAll('.dropdown.show').forEach(d => d.classList.remove('show'));
+    document.querySelectorAll('.nav-btn.open').forEach(b => b.classList.remove('open'));
+    document.querySelectorAll('.flyout-item.active, .flyout-sub-item.active').forEach(i => i.classList.remove('active'));
+  }
+});
+function closeAll() {
+  document.querySelectorAll('.dropdown.show').forEach(d => d.classList.remove('show'));
+  document.querySelectorAll('.nav-btn.open').forEach(b => b.classList.remove('open'));
+  document.querySelectorAll('.flyout-item.active, .flyout-sub-item.active').forEach(i => i.classList.remove('active'));
+}
+
+// ============ MASTER LEDGER ============
+function openMasterLedgerModal() { closeAll(); document.getElementById('modal-overlay').classList.add('show'); }
+function closeMasterLedgerModal() { document.getElementById('modal-overlay').classList.remove('show'); }
+
+// ============ PRODUCT LEDGER ============
+function openProductLedgerModal() {
+  closeAll();
+  const now = new Date();
+  const today = `${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()}`;
+  const plDate = document.getElementById('pl-date');
+  if (plDate) plDate.value = today;
+  document.getElementById('product-ledger-overlay').classList.add('show');
+}
+function closeProductLedgerModal() { document.getElementById('product-ledger-overlay').classList.remove('show'); }
+
+let products = [];
+function saveProduct() {
+  const name = document.getElementById('pl-name').value.trim();
+  if (!name) { showToast('Please enter a product name!'); return; }
+  const prod = {
+    name: name.toUpperCase(),
+    unit: document.getElementById('pl-unit').value,
+    hsn: document.getElementById('pl-hsn-code').value,
+    purchase: document.getElementById('pl-purchase').value,
+    sale: document.getElementById('pl-sale').value,
+    mrp: document.getElementById('pl-mrp').value,
+    gst: document.getElementById('pl-tax').value,
+    category: document.getElementById('pl-country').value
+  };
+  products.push(prod);
+  showToast('Product Saved: ' + prod.name);
+  updateProductList();
+  updateModifyList();
+}
+function saveProductAndNext() {
+  saveProduct();
+  document.getElementById('pl-name').value = '';
+  document.getElementById('pl-purchase').value = '0.00';
+  document.getElementById('pl-sale').value = '0.00';
+  document.getElementById('pl-mrp').value = '0.00';
+  document.getElementById('pl-hsn-code').value = '';
+  document.getElementById('pl-country').value = '';
+  document.getElementById('pl-name').focus();
+}
+function calcSalePrice() {
+  const cost = parseFloat(document.getElementById('pl-purchase').value) || 0;
+  const gp = parseFloat(document.getElementById('pl-gp').value) || 0;
+  const sale = cost + (cost * gp / 100);
+  document.getElementById('pl-sale').value = sale.toFixed(2);
+}
+
+// ============ PRODUCT LIST ============
+function openProductListModal() {
+  closeProductLedgerModal();
+  updateProductList();
+  document.getElementById('product-list-overlay').classList.add('show');
+}
+function closeProductListModal() { document.getElementById('product-list-overlay').classList.remove('show'); }
+function updateProductList() {
+  const tbody = document.getElementById('plist-tbody');
+  const badge = document.getElementById('plist-count-badge');
+  const footer = document.getElementById('plist-footer-count');
+  if (!products.length) {
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:20px;color:#555;">No products added yet.</td></tr>';
+    if (badge) badge.textContent = '0';
+    if (footer) footer.textContent = '0 Products';
+    return;
+  }
+  tbody.innerHTML = products.map((p,i) =>
+    `<tr>
+      <td>${p.name}</td>
+      <td>${p.unit}</td>
+      <td>${p.hsn||'-'}</td>
+      <td style="text-align:right">₹${parseFloat(p.purchase||0).toFixed(2)}</td>
+      <td style="text-align:right">₹${parseFloat(p.sale||0).toFixed(2)}</td>
+      <td style="text-align:right">₹${parseFloat(p.mrp||0).toFixed(2)}</td>
+      <td style="text-align:center">${p.gst}%</td>
+      <td>${p.category||'-'}</td>
+    </tr>`
+  ).join('');
+  if (badge) badge.textContent = products.length;
+  if (footer) footer.textContent = `${products.length} Product${products.length!==1?'s':''}`;
+}
+
+// ============ MODIFY PRODUCT ============
+function openModifyProductModal() {
+  closeProductLedgerModal();
+  updateModifyList();
+  document.getElementById('modify-product-overlay').classList.add('show');
+}
+function closeModifyProductModal() { document.getElementById('modify-product-overlay').classList.remove('show'); }
+function updateModifyList() {
+  const tbody = document.getElementById('mp-tbody');
+  if (!products.length) {
+    tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;padding:20px;color:#555;">No products to modify.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = products.map((p,i) =>
+    `<tr id="mp-row-${i}">
+      <td style="text-align:center;font-weight:700;">${i+1}</td>
+      <td><input class="mp-edit-input mp-name-input" value="${p.name}" onchange="products[${i}].name=this.value.toUpperCase();this.value=this.value.toUpperCase()"></td>
+      <td><select class="mp-edit-input" onchange="products[${i}].unit=this.value" style="width:65px;">
+        ${['NOS','KG','GM','LT','ML','MTR','CM','FT','MT','PCS'].map(u=>`<option${p.unit===u?' selected':''}>${u}</option>`).join('')}
+      </select></td>
+      <td><input class="mp-edit-input" value="${p.hsn||''}" onchange="products[${i}].hsn=this.value" style="width:70px;"></td>
+      <td><input class="mp-edit-input" type="number" value="${p.purchase||0}" onchange="products[${i}].purchase=this.value" style="width:75px;text-align:right;"></td>
+      <td><input class="mp-edit-input" type="number" value="${p.sale||0}" onchange="products[${i}].sale=this.value" style="width:75px;text-align:right;"></td>
+      <td><input class="mp-edit-input" type="number" value="${p.mrp||0}" onchange="products[${i}].mrp=this.value" style="width:75px;text-align:right;"></td>
+      <td><select class="mp-edit-input" onchange="products[${i}].gst=this.value" style="width:60px;">
+        ${['0','5','12','18','28'].map(g=>`<option${p.gst===g?' selected':''}>${g}%</option>`).join('')}
+      </select></td>
+      <td style="white-space:nowrap;">
+        <button class="mp-save-btn" onclick="showToast('Updated: '+products[${i}].name)">Save</button>
+        <button class="mp-del-btn" onclick="deleteProduct(${i})">Del</button>
+      </td>
+    </tr>`
+  ).join('');
+}
+function deleteProduct(i) {
+  if (confirm('Delete product: ' + products[i].name + '?')) {
+    products.splice(i, 1);
+    updateModifyList();
+    updateProductList();
+    showToast('Product deleted.');
+  }
+}
+
+// ============ PAYMENT VOUCHERS ============
+function openPaymentReceivedModal() { closeAll(); document.getElementById('payment-received-overlay').classList.add('show'); }
+function closePaymentReceivedModal() { document.getElementById('payment-received-overlay').classList.remove('show'); }
+function openPaymentIssuedModal() { closeAll(); document.getElementById('payment-issued-overlay').classList.add('show'); }
+function closePaymentIssuedModal() { document.getElementById('payment-issued-overlay').classList.remove('show'); }
+
+// ============ GENERIC MODAL ============
+const genericModules = {
+  modifyLedgers: () => buildFormModal('Modify Ledgers', [
+    {label:'Ledger No.',type:'text',placeholder:'Enter ledger number'},
+    {label:'Ledger Name',type:'text',placeholder:'Enter ledger name'},
+    {label:'Under Group',type:'select',options:['Capital Account','Current Assets','Current Liabilities','Fixed Assets','Sales Account','Purchase Account','Expenses (Direct)','Expenses (Indirect)']},
+    {label:'Opening Balance',type:'number',placeholder:'0.00'},
+    {label:'Dr / Cr',type:'select',options:['Dr','Cr']}
+  ]),
+  viewLedgers: () => buildTableModal('View Ledgers', ['No.','Code','Ledger Name','Group','Balance','Dr/Cr'], [['001','CA001','Capital Account','Capital Account','5,00,000.00','Cr'],['002','BA001','State Bank of India','Current Assets','2,34,567.00','Dr'],['003','CA002','Cash in Hand','Current Assets','45,230.00','Dr'],['004','SL001','Sales A/c','Sales Account','8,75,000.00','Cr'],['005','EX001','Salary Expense','Expenses (Indirect)','1,20,000.00','Dr']]),
+  viewGroups: () => buildTableModal('Ledger Groups', ['#','Group Name','Nature','Sub-Groups'], [['1','Capital Account','Liability','—'],['2','Loans (Liability)','Liability','—'],['3','Current Liabilities','Liability','Creditors, Outstanding'],['4','Fixed Assets','Assets','Land, Machinery'],['5','Current Assets','Assets','Debtors, Cash, Bank'],['6','Sales Account','Income','—'],['7','Purchase Account','Expense','—'],['8','Expenses (Direct)','Expense','—'],['9','Expenses (Indirect)','Expense','Admin, Selling'],['10','Income (Other)','Income','Interest, Commission']]),
+  pendingBills: () => buildTableModal('Pending Bills', ['Bill No.','Date','Party','Amount','Due Date','Status'], [['B-001','01/04/2025','ABC Traders','₹12,500','15/04/2025','Overdue'],['B-002','05/04/2025','XYZ Ltd.','₹8,200','20/04/2025','Pending'],['B-003','10/04/2025','Swetha Traders','₹34,000','25/04/2025','Pending']]),
+  openingBal: () => buildFormModal('Opening Balances', [
+    {label:'As on Date',type:'text',placeholder:'DD/MM/YYYY'},
+    {label:'Ledger Name',type:'text',placeholder:'Search ledger...'},
+    {label:'Opening Amount',type:'number',placeholder:'0.00'},
+    {label:'Dr / Cr',type:'select',options:['Dr','Cr']},
+    {label:'Narration',type:'text',placeholder:'Opening balance as on...'}
+  ]),
+  journalVoucher: () => buildFormModal('Journal Voucher', [
+    {label:'Voucher No.',type:'text',value:'JV-001'},
+    {label:'Date',type:'text',placeholder:'DD/MM/YYYY'},
+    {label:'Debit Ledger',type:'text',placeholder:'Dr Ledger'},
+    {label:'Credit Ledger',type:'text',placeholder:'Cr Ledger'},
+    {label:'Amount',type:'number',placeholder:'0.00'},
+    {label:'Narration',type:'text',placeholder:'Being amount transferred...'}
+  ]),
+  returnCheque: () => buildFormModal('Return Cheque Entry', [
+    {label:'Cheque No.',type:'text',placeholder:'Enter cheque number'},
+    {label:'Bank Name',type:'text',placeholder:'Bank name'},
+    {label:'Return Date',type:'text',placeholder:'DD/MM/YYYY'},
+    {label:'Party Name',type:'text',placeholder:'Party ledger'},
+    {label:'Amount',type:'number',placeholder:'0.00'},
+    {label:'Reason',type:'text',placeholder:'Reason for return'}
+  ]),
+  fixedAssets: () => buildFormModal('Taxable Fixed Assets', [
+    {label:'Asset Name',type:'text',placeholder:'Asset description'},
+    {label:'Purchase Date',type:'text',placeholder:'DD/MM/YYYY'},
+    {label:'Purchase Value',type:'number',placeholder:'0.00'},
+    {label:'Depreciation %',type:'number',placeholder:'0.00'},
+    {label:'HSN Code',type:'text',placeholder:'HSN'},
+    {label:'GST %',type:'select',options:['0%','5%','12%','18%','28%']}
+  ]),
+  bankRecon: () => buildTableModal('Bank Reconciliation', ['Date','Particulars','Cheque No.','Ledger Balance','Bank Balance','Difference'], [['01/04/2025','Opening Balance','—','2,34,567','2,34,567','—'],['05/04/2025','Cheque Issued','CQ-101','2,10,567','2,34,567','24,000'],['08/04/2025','Deposit','—','2,60,567','2,60,567','—']]),
+  productGroups: () => buildTableModal('Product Group List', ['#','Group Name','Products','HSN Range'], [['1','Electronics','24','8470-8543'],['2','Stationery','18','4817-4823'],['3','Textiles','32','5007-5212'],['4','Food Items','15','0901-2106'],['5','Medicines','10','3003-3006']]),
+  priceLabel: () => buildFormModal('Product Price Labeling', [
+    {label:'Product Name',type:'text',placeholder:'Search product...'},
+    {label:'Current Sale Price',type:'number',placeholder:'0.00'},
+    {label:'New Sale Price',type:'number',placeholder:'0.00'},
+    {label:'Label Size',type:'select',options:['Small (3x2cm)','Medium (5x3cm)','Large (7x4cm)']},
+    {label:'Print Qty',type:'number',value:'1'}
+  ]),
+  dupError: () => buildTableModal('Duplicate Product Errors', ['#','Product Name','Duplicate of','Created On','Action'], [['No duplicates found','','','','']]),
+  taxRate: () => buildTableModal('Tax Rate Modify', ['Product','Current GST %','New GST %','HSN Code','Effective Date'], [['Pencil Set','5%','5%','4817','01/04/2025'],['Notebook','0%','0%','4820','01/04/2025'],['Calculator','18%','18%','8470','01/04/2025']]),
+  prodPlan: () => buildFormModal('Product Planning & Control', [
+    {label:'Product Name',type:'text',placeholder:'Product...'},
+    {label:'Minimum Stock',type:'number',value:'10'},
+    {label:'Maximum Stock',type:'number',value:'500'},
+    {label:'Re-Order Level',type:'number',value:'50'},
+    {label:'Lead Time (days)',type:'number',value:'7'}
+  ]),
+  salesInv: () => buildFormModal('Outward Invoice (Sales)', [
+    {label:'Invoice No.',type:'text',value:'INV-001'},
+    {label:'Date',type:'text',placeholder:'DD/MM/YYYY'},
+    {label:'Party Name',type:'text',placeholder:'Customer name...'},
+    {label:'Product',type:'text',placeholder:'Product name...'},
+    {label:'Quantity',type:'number',value:'1'},
+    {label:'Rate',type:'number',placeholder:'0.00'},
+    {label:'GST %',type:'select',options:['0%','5%','12%','18%','28%']}
+  ]),
+  refMaster: () => buildFormModal('Reference Master', [
+    {label:'Reference Code',type:'text',placeholder:'REF-001'},
+    {label:'Reference Name',type:'text',placeholder:'Reference description'},
+    {label:'Type',type:'select',options:['Purchase Order','Sales Order','Work Order','Project']},
+    {label:'Date',type:'text',placeholder:'DD/MM/YYYY'}
+  ]),
+  serviceMaster: () => buildFormModal('Service Master', [
+    {label:'Service Code',type:'text',placeholder:'SVC-001'},
+    {label:'Service Name',type:'text',placeholder:'Service description'},
+    {label:'Rate per Unit',type:'number',placeholder:'0.00'},
+    {label:'Unit',type:'select',options:['Hour','Day','Fixed','Per Visit']},
+    {label:'GST %',type:'select',options:['0%','5%','12%','18%']}
+  ]),
+  serviceOrder: () => buildFormModal('Service Order', [
+    {label:'Order No.',type:'text',value:'SO-001'},
+    {label:'Date',type:'text',placeholder:'DD/MM/YYYY'},
+    {label:'Client Name',type:'text',placeholder:'Client...'},
+    {label:'Service',type:'text',placeholder:'Service type...'},
+    {label:'Quantity',type:'number',value:'1'},
+    {label:'Amount',type:'number',placeholder:'0.00'}
+  ]),
+  serviceInv: () => buildFormModal('Service Invoice', [
+    {label:'Invoice No.',type:'text',value:'SI-001'},
+    {label:'Date',type:'text',placeholder:'DD/MM/YYYY'},
+    {label:'Client',type:'text',placeholder:'Client name...'},
+    {label:'Service Description',type:'text',placeholder:'Services rendered...'},
+    {label:'Amount',type:'number',placeholder:'0.00'},
+    {label:'GST %',type:'select',options:['0%','5%','12%','18%']}
+  ]),
+  serviceReceipt: () => buildFormModal('Service Receipt', [
+    {label:'Receipt No.',type:'text',value:'SR-001'},
+    {label:'Date',type:'text',placeholder:'DD/MM/YYYY'},
+    {label:'Client',type:'text',placeholder:'Client name...'},
+    {label:'Against Invoice',type:'text',placeholder:'Invoice no...'},
+    {label:'Amount Received',type:'number',placeholder:'0.00'},
+    {label:'Mode',type:'select',options:['Cash','Cheque','NEFT','UPI']}
+  ]),
+  empMaster: () => buildFormModal('Employee Master', [
+    {label:'Emp. Code',type:'text',placeholder:'EMP-001'},
+    {label:'Name',type:'text',placeholder:'Employee name'},
+    {label:'Designation',type:'text',placeholder:'Designation'},
+    {label:'Department',type:'text',placeholder:'Department'},
+    {label:'Date of Joining',type:'text',placeholder:'DD/MM/YYYY'},
+    {label:'Basic Salary',type:'number',placeholder:'0.00'},
+    {label:'PAN No.',type:'text',placeholder:'PAN number'}
+  ]),
+  attendance: () => buildFormModal('Attendance Entry', [
+    {label:'Month',type:'select',options:['January','February','March','April','May','June','July','August','September','October','November','December']},
+    {label:'Year',type:'text',value:'2025'},
+    {label:'Employee',type:'text',placeholder:'Employee name / code'},
+    {label:'Present Days',type:'number',value:'0'},
+    {label:'Leave Days',type:'number',value:'0'},
+    {label:'Absent Days',type:'number',value:'0'}
+  ]),
+  leave: () => buildFormModal('Leave Management', [
+    {label:'Employee',type:'text',placeholder:'Employee name / code'},
+    {label:'Leave Type',type:'select',options:['Casual Leave','Sick Leave','Earned Leave','Maternity/Paternity','LOP']},
+    {label:'From Date',type:'text',placeholder:'DD/MM/YYYY'},
+    {label:'To Date',type:'text',placeholder:'DD/MM/YYYY'},
+    {label:'Reason',type:'text',placeholder:'Reason for leave'}
+  ]),
+  payroll: () => buildTableModal('Payroll Processing', ['Emp.','Name','Basic','HRA','DA','Deductions','Net Pay'], [['E001','Swetha L','₹25,000','₹10,000','₹5,000','₹3,500','₹36,500'],['E002','Rajesh K','₹20,000','₹8,000','₹4,000','₹2,800','₹29,200']]),
+  mktResearch: () => buildFormModal('Market Buyer Research', [
+    {label:'Country',type:'text',placeholder:'Target country'},
+    {label:'Product',type:'text',placeholder:'Product to export'},
+    {label:'HS Code',type:'text',placeholder:'HS Code'},
+    {label:'Research Date',type:'text',placeholder:'DD/MM/YYYY'},
+    {label:'Market Notes',type:'text',placeholder:'Key findings...'}
+  ]),
+  orderProc: () => buildFormModal('Order Processing', [
+    {label:'Order No.',type:'text',value:'ORD-001'},
+    {label:'Buyer Name',type:'text',placeholder:'Buyer name'},
+    {label:'Country',type:'text',placeholder:'Destination country'},
+    {label:'Product',type:'text',placeholder:'Product description'},
+    {label:'Quantity',type:'number',value:'0'},
+    {label:'Unit Price (USD)',type:'number',placeholder:'0.00'},
+    {label:'Incoterms',type:'select',options:['FOB','CIF','EXW','DDP','CFR']}
+  ]),
+  costProc: () => buildFormModal('Cost Process', [
+    {label:'Order Ref.',type:'text',placeholder:'Order reference'},
+    {label:'Product Cost',type:'number',placeholder:'0.00'},
+    {label:'Freight',type:'number',placeholder:'0.00'},
+    {label:'Insurance',type:'number',placeholder:'0.00'},
+    {label:'Customs Duty',type:'number',placeholder:'0.00'},
+    {label:'Other Charges',type:'number',placeholder:'0.00'}
+  ]),
+  payProc: () => buildFormModal('Payment Process', [
+    {label:'Invoice No.',type:'text',placeholder:'Invoice reference'},
+    {label:'Payment Mode',type:'select',options:['LC (Letter of Credit)','TT (Telegraphic Transfer)','CAD','Open Account','Advance Payment']},
+    {label:'Bank Name',type:'text',placeholder:'Negotiating bank'},
+    {label:'Amount (USD)',type:'number',placeholder:'0.00'},
+    {label:'Due Date',type:'text',placeholder:'DD/MM/YYYY'}
+  ]),
+  preShip: () => buildFormModal('Pre-Shipment Process', [
+    {label:'Shipping Bill No.',type:'text',placeholder:'SB-001'},
+    {label:'Port of Export',type:'text',placeholder:'Port name'},
+    {label:'Vessel/Flight',type:'text',placeholder:'Vessel / flight no.'},
+    {label:'ETD',type:'text',placeholder:'DD/MM/YYYY'},
+    {label:'Container No.',type:'text',placeholder:'Container number'}
+  ]),
+  cfProc: () => buildFormModal('Clearing & Forwarding', [
+    {label:'CHA Name',type:'text',placeholder:'CHA firm name'},
+    {label:'BE / SB No.',type:'text',placeholder:'Bill of Entry / SB number'},
+    {label:'Custom Duty',type:'number',placeholder:'0.00'},
+    {label:'Port Charges',type:'number',placeholder:'0.00'},
+    {label:'CHA Charges',type:'number',placeholder:'0.00'}
+  ]),
+  postShip: () => buildFormModal('Post Shipment Process', [
+    {label:'BL / AWB No.',type:'text',placeholder:'Bill of lading / AWB'},
+    {label:'Date of Shipment',type:'text',placeholder:'DD/MM/YYYY'},
+    {label:'ETA at Destination',type:'text',placeholder:'DD/MM/YYYY'},
+    {label:'Invoice Value',type:'number',placeholder:'0.00'},
+    {label:'Drawback Claim',type:'text',placeholder:'Drawback ref.'}
+  ]),
+  dailyAccts: () => buildTableModal('Daily Accounts Books', ['Date','Particulars','Vch No.','Debit (₹)','Credit (₹)','Balance (₹)'], [['Today','Opening Balance','—','—','—','2,34,567'],['Today','Sales Invoice','INV-001','12,500','—','2,47,067'],['Today','Payment Received','RV-001','—','8,200','2,38,867']]),
+  ledgerBooks: () => buildTableModal('Ledger Account Books', ['Date','Particulars','Vch Type','Vch No.','Debit','Credit','Balance'], [['01/04','Opening Balance','—','—','—','—','50,000 Dr'],['05/04','Sales','Invoice','001','25,000','—','75,000 Dr'],['10/04','Payment Received','Receipt','R01','—','10,000','65,000 Dr']]),
+  salesTax: () => buildTableModal('Sales Tax Reports', ['Month','Taxable Sales','CGST','SGST','IGST','Total Tax'], [['April 2025','₹1,25,000','₹11,250','₹11,250','₹0','₹22,500'],['May 2025','₹1,45,000','₹13,050','₹13,050','₹0','₹26,100']]),
+  mgmtInfo: () => buildTableModal('Management Information', ['Particulars','This Month','Last Month','% Change'], [['Total Sales','₹2,50,000','₹2,10,000','+19%'],['Total Purchase','₹1,80,000','₹1,60,000','+12.5%'],['Gross Profit','₹70,000','₹50,000','+40%'],['Net Profit','₹42,000','₹28,000','+50%']]),
+  finModel: () => buildTableModal('Financial Model Information', ['Ratio','Value','Benchmark','Status'], [['Current Ratio','2.1','2.0','✅ Good'],['Quick Ratio','1.5','1.0','✅ Good'],['Debt/Equity','0.4','<1.0','✅ Good'],['Net Profit %','16.8%','>10%','✅ Good'],['Return on Assets','12.3%','>10%','✅ Good']]),
+  filesBackup: () => buildFormModal('Files Backup', [{label:'Backup Location',type:'text',value:'D:\\Backup\\ERP\\'},{label:'Backup Date',type:'text',placeholder:'DD/MM/YYYY'},{label:'Include Archive',type:'select',options:['Yes','No']},{label:'Compress',type:'select',options:['Yes','No']}]),
+  filesRestore: () => buildFormModal('Files Restore', [{label:'Restore From',type:'text',placeholder:'Select backup file path'},{label:'Restore Date',type:'text',placeholder:'DD/MM/YYYY'},{label:'Confirm',type:'select',options:['Yes – Restore','No – Cancel']}]),
+  finAcct: () => buildFormModal('Financial Account', [{label:'Financial Year',type:'select',options:['2025-26','2024-25','2023-24']},{label:'Account Type',type:'select',options:['Trial Balance','P&L Account','Balance Sheet','Cash Flow']},{label:'As on Date',type:'text',placeholder:'DD/MM/YYYY'}]),
+  annualPost: () => buildFormModal('Annual Posting', [{label:'From Year',type:'text',value:'2024-25'},{label:'To Year',type:'text',value:'2025-26'},{label:'Include Closing Stock',type:'select',options:['Yes','No']},{label:'Carry Forward',type:'select',options:['All Balances','Debtors & Creditors Only']}]),
+  excelCalc: () => buildFormModal('MS Excel Calculator', [{label:'Export Type',type:'select',options:['Trial Balance','Ledger Summary','Stock Report','Sales Summary']},{label:'Date Range From',type:'text',placeholder:'DD/MM/YYYY'},{label:'Date Range To',type:'text',placeholder:'DD/MM/YYYY'},{label:'Format',type:'select',options:['.xlsx','.csv','.xls']}]),
+  settingsFiles: () => buildFormModal('Files Settings', [{label:'Data Path',type:'text',value:'C:\\BizTech\\Data\\'},{label:'Backup Path',type:'text',value:'D:\\Backup\\'},{label:'Auto Backup',type:'select',options:['Daily','Weekly','Monthly','Manual']}]),
+  dataUtil: () => buildFormModal('Data Utilities', [{label:'Utility Type',type:'select',options:['Re-Index Database','Compact Database','Verify Data Integrity','Clear Temp Files']},{label:'Date',type:'text',placeholder:'DD/MM/YYYY'}]),
+  compLogin: () => buildFormModal('Company Login', [{label:'Company Code',type:'text',placeholder:'Company code'},{label:'Username',type:'text',placeholder:'Username'},{label:'Password',type:'password',placeholder:'Password'}]),
+  createComp: () => buildFormModal('Create Company', [{label:'Company Name',type:'text',placeholder:'Enter company name'},{label:'Address',type:'text',placeholder:'Address'},{label:'GST No.',type:'text',placeholder:'GSTIN'},{label:'PAN No.',type:'text',placeholder:'PAN'},{label:'Financial Year',type:'text',value:'2025-26'}]),
+  bizSetup1: () => buildFormModal('Business Setup - 1', [{label:'Business Name',type:'text',value:'SWETHA.L'},{label:'Registration No.',type:'text',value:'2513721108045'},{label:'GST Type',type:'select',options:['GST Registered Dealer','Composition Dealer','Unregistered']},{label:'State',type:'text',placeholder:'State name'},{label:'Currency',type:'select',options:['INR (₹)','USD ($)','EUR (€)']}]),
+  bizSetup2: () => buildFormModal('Business Setup - 2', [{label:'Voucher Prefix',type:'text',value:'INV-'},{label:'Starting No.',type:'number',value:'1'},{label:'Financial Year Start',type:'select',options:['April','January']},{label:'Default Tax',type:'select',options:['18%','12%','5%','0%']},{label:'Print Header',type:'text',value:'SWETHA.L'}]),
+  modAuth: () => buildFormModal('Modify Authorization', [{label:'User Name',type:'text',placeholder:'Username'},{label:'Module Access',type:'select',options:['Full Access','Read Only','Data Entry','Reports Only']},{label:'Valid Till',type:'text',placeholder:'DD/MM/YYYY'}]),
+  modPass: () => buildFormModal('Modify Password', [{label:'Username',type:'text',placeholder:'Username'},{label:'Current Password',type:'password',placeholder:'Current password'},{label:'New Password',type:'password',placeholder:'New password'},{label:'Confirm Password',type:'password',placeholder:'Confirm new password'}]),
+  helpMenu: () => buildInfoModal('Help & Support', `<div style="line-height:1.9;font-size:13px;color:#1a4025;"><b>BizTech Intelligence ERP</b> — Help Center<br><br><b>Version:</b> Premier Plus 2025<br><b>Registered To:</b> SWETHA.L<br><b>Reg. No.:</b> 2513721108045<br><br><b>Quick Keys:</b><br>• Alt+F4 — Exit current window<br>• F5 — Refresh / Next entry<br>• Ctrl+S — Save<br>• Esc — Close modal<br><br><b>Support:</b> support@biztecherp.in<br><b>Phone:</b> 1800-XXX-XXXX (Toll Free)</div>`),
+  searchData: () => buildFormModal('Search Data', [{label:'Search Keyword',type:'text',placeholder:'Enter search term...'},{label:'Module',type:'select',options:['All','Accounts','Inventory','Sales','Purchase','HR']},{label:'Date From',type:'text',placeholder:'DD/MM/YYYY'},{label:'Date To',type:'text',placeholder:'DD/MM/YYYY'}]),
+  searchLedger: () => buildFormModal('Search Ledger', [{label:'Ledger Name / Code',type:'text',placeholder:'Enter ledger name or code...'},{label:'Group',type:'select',options:['All Groups','Capital Account','Current Assets','Current Liabilities','Fixed Assets','Sales Account','Purchase Account']},{label:'Balance Type',type:'select',options:['All','Debit','Credit']}]),
+  modAcct: () => buildFormModal('Account', [{label:'Voucher No.',type:'text',placeholder:'Enter voucher number'},{label:'Module',type:'select',options:['Journal','Payment','Receipt','Sales','Purchase']},{label:'New Account Ledger',type:'text',placeholder:'Replacement ledger name'}]),
+  modNarr: () => buildFormModal('Narration Modify', [{label:'Voucher No.',type:'text',placeholder:'Enter voucher number'},{label:'Current Narration',type:'text',placeholder:'(auto-filled)'},{label:'New Narration',type:'text',placeholder:'New narration text'}]),
+  modBill: () => buildFormModal('Billing No. Modify', [{label:'Old Bill No.',type:'text',placeholder:'Enter existing bill number'},{label:'New Bill No.',type:'text',placeholder:'Enter new bill number'},{label:'Module',type:'select',options:['Sales','Purchase','Journal']}]),
+  modRef: () => buildFormModal('Reference No. Modify', [{label:'Old Reference No.',type:'text',placeholder:'Existing reference'},{label:'New Reference No.',type:'text',placeholder:'New reference'},{label:'Party Name',type:'text',placeholder:'Party ledger'}]),
+  allTrans: () => buildTableModal('All Transactions', ['Date','Vch Type','Vch No.','Ledger','Debit (₹)','Credit (₹)'], [['01/04','Journal','JV-001','Capital A/c','—','5,00,000'],['02/04','Payment','PV-001','Rent Expense','12,000','—'],['03/04','Receipt','RV-001','Customer A','—','25,000'],['04/04','Sales','INV-001','Sales A/c','—','18,500']]),
+  recCheck: () => buildTableModal('Records Checking', ['Module','Total Records','Errors','Last Checked'], [['Accounts','1,234','0','Today'],['Inventory','456','0','Today'],['Sales','789','0','Today'],['HR','123','0','Today']]),
+  dateModify: () => buildFormModal('Date Modify', [{label:'Voucher No.',type:'text',placeholder:'Enter voucher number'},{label:'Module',type:'select',options:['Journal','Payment','Receipt','Sales','Purchase']},{label:'Current Date',type:'text',placeholder:'(auto-filled)'},{label:'New Date',type:'text',placeholder:'DD/MM/YYYY'}]),
+  pendBills: () => buildTableModal('Pending Bills', ['Bill No.','Date','Party','Amount','Due Date','Days Overdue'], [['B-001','01/04/2025','ABC Traders','₹12,500','15/04/2025','Overdue'],['B-002','05/04/2025','XYZ Ltd.','₹8,200','20/04/2025','Pending'],['B-003','10/04/2025','Swetha Traders','₹34,000','25/04/2025','Pending']]),
+  invMod: () => buildFormModal('Inventory Modify (Purchase / Sales)', [{label:'Bill No.',type:'text',placeholder:'Purchase/Sales bill no.'},{label:'Type',type:'select',options:['Purchase','Sales']},{label:'Product',type:'text',placeholder:'Product name'},{label:'Old Qty',type:'number',placeholder:'0'},{label:'New Qty',type:'number',placeholder:'0'},{label:'Old Rate',type:'number',placeholder:'0.00'},{label:'New Rate',type:'number',placeholder:'0.00'}]),
+  rcptPay: () => buildFormModal('Receipts & Payments Voucher Modify', [{label:'Voucher No.',type:'text',placeholder:'RV/PV number'},{label:'Type',type:'select',options:['Receipt','Payment']},{label:'Old Amount',type:'number',placeholder:'0.00'},{label:'New Amount',type:'number',placeholder:'0.00'},{label:'New Narration',type:'text',placeholder:'Updated narration'}]),
+  salVouch: () => buildFormModal('Salary Voucher', [{label:'Month',type:'select',options:['April','May','June','July','August','September','October','November','December','January','February','March']},{label:'Year',type:'text',value:'2025'},{label:'Employee',type:'text',placeholder:'Employee name/code'},{label:'Basic',type:'number',placeholder:'0.00'},{label:'Allowances',type:'number',placeholder:'0.00'},{label:'Deductions',type:'number',placeholder:'0.00'}]),
+  credBal: () => buildTableModal('Creditors Balance', ['Creditor','Opening (₹)','Purchases (₹)','Payments (₹)','Closing Balance (₹)'], [['ABC Suppliers','50,000','1,25,000','1,00,000','75,000'],['XYZ Wholesale','30,000','80,000','60,000','50,000'],['MNO Trading','20,000','45,000','50,000','15,000']]),
+  dateList: () => buildTableModal('Date Wise List', ['Date','Module','Vch No.','Party','Amount (₹)'], [['01/04/2025','Sales','INV-001','Customer A','18,500'],['02/04/2025','Payment','PV-001','Rent','12,000'],['03/04/2025','Receipt','RV-001','Customer B','25,000'],['04/04/2025','Purchase','PUR-001','Supplier X','34,000']]),
+  dupEntry: () => buildTableModal('Duplicate Entry Check', ['Vch No.','Date','Module','Amount','Duplicate of'], [['No duplicates found','','','','']]),
+  cashCheck: () => buildTableModal('Cash Balance Checking', ['Date','Opening','Receipts','Payments','Closing'], [['01/04/2025','₹45,230','₹18,500','₹12,000','₹51,730'],['02/04/2025','₹51,730','₹0','₹5,000','₹46,730'],['03/04/2025','₹46,730','₹25,000','₹8,000','₹63,730']]),
+  bankCheck: () => buildTableModal('Bank Balance Checking', ['Bank','Date','Opening','Deposits','Withdrawals','Closing'], [['SBI','01/04','₹2,34,567','₹25,000','₹15,000','₹2,44,567'],['HDFC','01/04','₹1,12,340','₹10,000','₹8,500','₹1,13,840']]),
+  grpLedger: () => buildFormModal('Group Ledgers Change', [{label:'Ledger Name',type:'text',placeholder:'Enter ledger name'},{label:'Current Group',type:'text',placeholder:'(auto-filled)'},{label:'New Group',type:'select',options:['Capital Account','Current Assets','Current Liabilities','Fixed Assets','Sales Account','Purchase Account','Expenses (Direct)','Expenses (Indirect)','Income (Other)']}]),
+  stockView: () => buildTableModal('Opening Stock View', ['Product','Opening Qty','Unit','Rate','Value (₹)'], products.length ? products.map(p=>[p.name, document.getElementById('pl-stock-qty1')?document.getElementById('pl-stock-qty1').value||'0':'0', p.unit, p.purchase||'0', '0.00']) : [['No products','—','—','—','—']]),
+  modRefMaster: () => buildFormModal('Modify Reference Master', [{label:'Reference Code',type:'text',placeholder:'REF-001'},{label:'New Reference Name',type:'text',placeholder:'Updated name'},{label:'New Type',type:'select',options:['Purchase Order','Sales Order','Work Order','Project']}]),
+};
+
+function buildFormModal(title, fields) {
+  document.getElementById('gm-title').textContent = '📝 ' + title;
+  let html = `<h3>${title}</h3>`;
+  fields.forEach(f => {
+    html += `<div class="gm-form-row"><label class="gm-lbl">${f.label}</label>`;
+    if (f.type === 'select') {
+      html += `<select class="gm-select">${(f.options||[]).map(o=>`<option>${o}</option>`).join('')}</select>`;
+    } else {
+      html += `<input type="${f.type||'text'}" class="gm-input" placeholder="${f.placeholder||''}" value="${f.value||''}">`;
+    }
+    html += `</div>`;
+  });
+  html += `<div class="gm-btn-row"><button class="gm-btn gm-btn-save" onclick="showToast('${title} Saved!')">Save</button><button class="gm-btn gm-btn-save">Next</button><button class="gm-btn gm-btn-close" onclick="closeGenericModal()">Close</button></div>`;
+  document.getElementById('gm-body').innerHTML = html;
+}
+function buildTableModal(title, headers, rows) {
+  document.getElementById('gm-title').textContent = '📊 ' + title;
+  const hRow = headers.map(h=>`<th>${h}</th>`).join('');
+  const bRows = rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('');
+  document.getElementById('gm-body').innerHTML = `
+    <h3>${title}</h3>
+    <div style="overflow-x:auto;max-height:55vh;overflow-y:auto;margin-bottom:12px;">
+      <table class="gm-table"><thead><tr>${hRow}</tr></thead><tbody>${bRows}</tbody></table>
+    </div>
+    <div class="gm-btn-row">
+      <button class="gm-btn gm-btn-save" onclick="showToast('Printed/Exported!')">Print / Export</button>
+      <button class="gm-btn gm-btn-close" onclick="closeGenericModal()">Close</button>
+    </div>`;
+}
+function buildInfoModal(title, html) {
+  document.getElementById('gm-title').textContent = 'ℹ️ ' + title;
+  document.getElementById('gm-body').innerHTML = html + `<div class="gm-btn-row"><button class="gm-btn gm-btn-close" onclick="closeGenericModal()">Close</button></div>`;
+}
+function openGeneric(title, key) {
+  closeAll();
+  if (genericModules[key]) {
+    genericModules[key]();
+  } else {
+    buildFormModal(title, [{label:'Feature',type:'text',value:title},{label:'Status',type:'text',value:'Available in full version'}]);
+  }
+  document.getElementById('generic-overlay').classList.add('show');
+}
+function closeGenericModal() { document.getElementById('generic-overlay').classList.remove('show'); }
+
+// ============ TOAST ============
+function showToast(msg) {
+  const t = document.getElementById('save-toast');
+  t.textContent = '✔ ' + msg;
+  t.className = 'show';
+  setTimeout(() => { t.className = ''; }, 2600);
+}
+
+// Keyboard: Esc closes modals
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    closeMasterLedgerModal();
+    closeProductLedgerModal();
+    closeProductListModal();
+    closeModifyProductModal();
+    closePaymentReceivedModal();
+    closePaymentIssuedModal();
+    closeGenericModal();
+    closeAll();
+  }
+});
+</script>
+</body>
+</html>
